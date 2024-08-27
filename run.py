@@ -53,9 +53,9 @@ async def handle_new_message(event, stream=False):
     session_id = sender.username
     #Gen the answer
     print(f'Nhận tin nhắn từ {session_id}: {message}')
-    if not stream:
+    if not stream: #If stream == True, the code under 'the if' will be crashed.
         initial_message = await event.respond("Đang sinh câu trả lời...")
-        answer = text_gen.invoke(message, session_id)
+        answer, img_caps, relevant_docs = text_gen.invoke(message, session_id)
         await client.edit_message(event.chat_id, initial_message, answer)
     else:
         initial_message = await event.respond("Đang sinh câu trả lời...")
@@ -74,9 +74,13 @@ async def handle_new_message(event, stream=False):
             except Exception as e:
                 await event.respond('Đã xảy ra lỗi trong quá trình sinh câu trả lời')
                 break
-    relevance = is_relevance("Hộp đựng sữa làm từ vật liệu ghép màng-giấy và thiết bị định hình, chiết rót, hàn kín bao bì", answer)
-    if bool(relevance):
-        await client.send_file(event.chat_id, """img/1.1-spkt.png""", caption="Hình minh họa: "+"Hộp đựng sữa làm từ vật liệu ghép màng-giấy và thiết bị định hình, chiết rót, hàn kín bao bì")
+    if answer != "Tôi không được cung cấp thông tin để trả lời câu hỏi này":
+        relevances = is_relevance(img_caps, answer, message, relevant_docs)
+        print(relevances)
+        for i, img_cap in enumerate(img_caps):
+            if bool(relevances[i].dict()["relevance"]):
+                file_path = "img/"+img_cap.split(":")[0].split(' ')[1]+"-spkt.png"
+                await client.send_file(event.chat_id, file_path, caption=img_cap)
     #Update log and database
     update_conversations(session_id, "", time)
     

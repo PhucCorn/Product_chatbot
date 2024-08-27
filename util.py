@@ -3,8 +3,8 @@ from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
-import pandas as pd
-from tabulate import tabulate
+# import pandas as pd
+# from tabulate import tabulate
 
 
 def get_session_history_mongodb(session_id):
@@ -25,50 +25,64 @@ def bbas_docs():
     ]
     return docs
 
-def is_relevance(sub_text, main_text):
+def is_relevance(img_caps, answer, message, relevant_docs):
+    batch = []
     tagging_prompt = ChatPromptTemplate.from_template(
         """
-    Evaluate the relevance of the following image caption to the provided text.
+    You are given four pieces of information: (1) a question, (2) an answer to the question, (3) a caption for an image that is intended to illustrate the answer, and (4) a document that is used to generate an answer and an image represents. Your task is to assess how relevant the image caption is to the given answer, considering that the image is used to support or clarify the answer. 
 
     Only extract the properties mentioned in the 'Classification' function.
 
-    Image caption:
-    {sub_text}
-    Text:
-    {main_text}
+    A question:
+    {question}
+    An answer:
+    {answer}
+    A caption for an image:
+    {img_cap}
+    A document:
+    {relevant_docs}
     """
     )
     class Classification(BaseModel):
-        relevance: bool = Field(description="How relevance of the following image caption to the provided text. The relevance is just True or False, where True means image caption and the provided text are revelant, and False means not revelant")
+        relevance: bool = Field(description="How relevance of caption for an image to an answer base on question, an answer, a document and a caption of image. The relevance is just True or False, where True means a caption for an image and a question, an answer are revelant, and False means not revelant")
         relevance_score : float = Field(
-            description="How relevance of the following image caption to the provided text. The relevance is on a scale of 1 to 10, where 1 means completely unrelated, and 10 means highly relevant."
+            description="How relevance of the following image caption to a question and an answer. The relevance is a real number and is on a scale of 0 to 10, where 0 means completely irrelevant, and 10 means the caption perfectly complements and supports the answer."
         )
         explanation : str = Field(description="a brief explanation for your relevance score")
     llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
         Classification
     )   
     tagging_chain = tagging_prompt | llm
-    res = tagging_chain.invoke({"sub_text": sub_text, "main_text": main_text})
-    print(res.dict())
-    return res.dict()["relevance"]
+    for img_cap in img_caps:
+        batch += [{"question": message, "answer": answer, "img_cap": img_cap, "relevant_docs": relevant_docs}]
+    response = tagging_chain.batch(batch)
+    return response
 
-def tabel_gen(file_path):
-    df_dict = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
-    tables = []
-    sheets_name = []
-    for sheet_name, df in df_dict.items():
-        # table = tabulate(df, headers='keys', tablefmt='grid', showindex=False)
-        table = df.to_string(index=False)
-        tables += [table]
-        sheets_name += [sheet_name]
-    return tables, sheets_name
+def img_caps_gen(docs):
+    img_caps = []
+    for doc in docs:
+        for img_cap in doc.metadata["img_cap"]:
+            if img_cap not in img_caps:
+                img_caps += [img_cap]
+    return img_caps
 
-def add_table(txt_file_path):
-    xlsx_file_path = txt_file_path[:-4]+".xlsx"
-    tables, sheets_name = tabel_gen(xlsx_file_path)
-    with open(txt_file_path, 'r', encoding='utf-8') as file:
-        content = file.read()
-    for i, sheet_name in enumerate(sheets_name):
-        updated_content = content.replace("--xlsx."+sheet_name+"--", tables[i])
-    with open(txt_file_path, 'w', encoding='utf-8') as file:
-        file.write(updated_content)
+# def tabel_gen(file_path):
+#     df_dict = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
+#     tables = []
+#     sheets_name = []
+#     for sheet_name, df in df_dict.items():
+#         # table = tabulate(df, headers='keys', tablefmt='grid', showindex=False)
+#         table = df.to_string(index=False)
+#         tables += [table]
+#         sheets_name += [sheet_name]
+#     return tables, sheets_name
+
+# def add_table(txt_file_path):
+#     xlsx_file_path = txt_file_path[:-4]+".xlsx"
+#     tables, sheets_name = tabel_gen(xlsx_file_path)
+#     with open(txt_file_path, 'r', encoding='utf-8') as file:
+#         content = file.read()
+#     for i, sheet_name in enumerate(sheets_name):
+#         updated_content = content.replace("--xlsx."+sheet_name+"--", tables[i])
+#     with open(txt_file_path, 'w', encoding='utf-8') as file:
+#         file.write(updated_content)

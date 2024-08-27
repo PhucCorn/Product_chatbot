@@ -21,14 +21,16 @@ from langchain.retrievers.document_compressors import LLMChainFilter
 from langchain.retrievers import ContextualCompressionRetriever
 from operator import itemgetter
 import uuid
+import shutil
 from util import *
+import os
 
 class AIAssistant:
     def __init__(self):
         self.model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
         self.embedding = OpenAIEmbeddings(model="text-embedding-3-large")
         self.parser = StrOutputParser()
-        self.retriever = self.multivector_retriever()
+        self.retriever = self.multivector_summary_retriever()
         
     def llm_memory(self):
         trimmer = trim_messages(
@@ -85,16 +87,11 @@ class AIAssistant:
         )
         return retriever
     
-    def multivector_retriever(self):
-        file_path = "doc\spkt.txt"
-        loaders = [
-            TextLoader(file_path, encoding = 'UTF-8'),
-        ]
-        docs = []
-        for loader in loaders:
-            docs.extend(loader.load())
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000)
-        docs = text_splitter.split_documents(docs)
+    def multivector_subchunk_retriever(self):
+        db_path = "./chroma_langchain_db"
+        if os.path.exists(db_path):
+            shutil.rmtree(db_path)
+            print("Đã xóa thư mục Chroma cũ.")
         vectorstore = Chroma(
             collection_name="full_documents", embedding_function=self.embedding, persist_directory="./chroma_langchain_db"
         )
@@ -105,17 +102,83 @@ class AIAssistant:
             byte_store=store,
             id_key=id_key,
         )
-        doc_ids = [str(uuid.uuid4()) for _ in docs]
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150,  separators=["\n\n"])
         child_text_splitter = RecursiveCharacterTextSplitter(chunk_size=200)
-        sub_docs = []
-        for i, doc in enumerate(docs):
-            _id = doc_ids[i]
-            _sub_docs = child_text_splitter.split_documents([doc])
-            for _doc in _sub_docs:
-                _doc.metadata[id_key] = _id
-            sub_docs.extend(_sub_docs)
-        retriever.vectorstore.add_documents(sub_docs)
-        retriever.docstore.mset(list(zip(doc_ids, docs)))
+        file_names = os.listdir('doc')
+        for file_name in file_names:
+            with open("img_cap/"+file_name[:-4]+"_cap.txt", 'r', encoding='utf-8') as f:
+                caps = f.readlines()
+            loaders = [
+                TextLoader("doc/"+file_name, encoding = 'UTF-8'),
+            ]
+            docs = []
+            for loader in loaders:
+                docs.extend(loader.load())
+            docs = text_splitter.split_documents(docs)
+            doc_ids = [str(uuid.uuid4()) for _ in docs]
+            sub_docs = []
+            for i, doc in enumerate(docs):
+                _id = doc_ids[i]
+                _sub_docs = child_text_splitter.split_documents([doc])
+                for _doc in _sub_docs:
+                    _doc.metadata[id_key] = _id
+                sub_docs.extend(_sub_docs)
+                doc.metadata['img_cap'] = []
+                for cap in caps:
+                    link, img_cap = cap.split("%")
+                    if link in doc.page_content:
+                        doc.metadata['img_cap'] += [img_cap]
+            retriever.vectorstore.add_documents(sub_docs)
+            retriever.docstore.mset(list(zip(doc_ids, docs)))
+        return retriever
+    
+    def multivector_summary_retriever(self):
+        db_path = "./chroma_langchain_db"
+        if os.path.exists(db_path):
+            shutil.rmtree(db_path)
+            print("Đã xóa thư mục Chroma cũ.")
+        vectorstore = Chroma(
+            collection_name="summaries", embedding_function=self.embedding, persist_directory="./chroma_langchain_db"
+        )
+        store = InMemoryByteStore()
+        id_key = "doc_id"
+        retriever = MultiVectorRetriever(
+            vectorstore=vectorstore,
+            byte_store=store,
+            id_key=id_key,
+        )
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150,  separators=["\n\n"])
+        chain = (
+            {"doc": lambda x: x.page_content}
+            | ChatPromptTemplate.from_template("Summarize the following document:\n\n{doc}")
+            | self.model
+            | StrOutputParser()
+        )
+        file_names = os.listdir('doc')
+        for file_name in file_names:
+            with open("img_cap/"+file_name[:-4]+"_cap.txt", 'r', encoding='utf-8') as f:
+                caps = f.readlines()
+            loaders = [
+                TextLoader("doc/"+file_name, encoding = 'UTF-8'),
+            ]
+            docs = []
+            for loader in loaders:
+                docs.extend(loader.load())
+            docs = text_splitter.split_documents(docs)
+            doc_ids = [str(uuid.uuid4()) for _ in docs]
+            summaries = chain.batch(docs, {"max_concurrency": 5})
+            summary_docs = [
+                Document(page_content=s, metadata={id_key: doc_ids[i]})
+                for i, s in enumerate(summaries)
+            ]
+            for doc in docs:
+                doc.metadata['img_cap'] = []
+                for cap in caps:
+                    link, img_cap = cap.split("%")
+                    if link in doc.page_content:
+                        doc.metadata['img_cap'] += [img_cap]
+            retriever.vectorstore.add_documents(summary_docs)
+            retriever.docstore.mset(list(zip(doc_ids, docs)))
         return retriever
         
     
@@ -128,7 +191,7 @@ class AIAssistant:
             docs = compression_retriever.invoke(question)
         except Exception as e:
             docs = [Document(page_content="Không có tài liệu liên quan đến câu hỏi này.", metadata={})]
-        return "\n\n".join(doc.page_content for doc in docs)
+        return docs
 
     def invoke(self, question: str, session_id: str) -> str:
         config = {"configurable": {"session_id": session_id}}
@@ -146,6 +209,8 @@ class AIAssistant:
             input_messages_key="question", #Which key is user's input
         )
         docs = self.docs_gen(question)
+        img_caps = img_caps_gen(docs)
+        docs = "\n\n".join(doc.page_content for doc in docs)
         print(docs)
         print("/////////////////////////////////////////////")
         result = with_message_history.invoke(
@@ -155,7 +220,7 @@ class AIAssistant:
             },
             config=config,
         )
-        return result
+        return result, img_caps, docs
     
     def stream(self, question: str, session_id: str) -> str:
         config = {"configurable": {"session_id": session_id}}
@@ -175,13 +240,6 @@ class AIAssistant:
         docs = self.docs_gen(question)
         print(docs)
         print("/////////////////////////////////////////////")
-        result = with_message_history.invoke(
-            {
-                "question": [HumanMessage(content=question)],
-                "doc": docs
-            },
-            config=config,
-        )
         dict_input = {
             "question": [HumanMessage(content=question)],
             "doc": docs

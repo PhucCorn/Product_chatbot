@@ -1,7 +1,5 @@
 GIỚI THIỆU CHUNG VỀ BAO BÌ, PHÁT TRIỂN HỆ THỐNG BAO BÌ CHO SẢN PHẨM
-
 Chương 1: TỔNG QUAN VỀ BAO BÌ
-
 Chương này giới thiệu các thông tin tổng quan về bao bì: khái niệm cơ bản về bao bì; các tính năng của bao bì; thị phần, phạm vi ứng dụng và đặc điểm của từng dạng bao bì, tình hình sản xuất và xu hướng phát triển của công nghiệp sản xuất bao bì trên thế giới và Việt Nam.
 Mục tiêu chương:
 Sau khi học xong chương này người học có khả năng:
@@ -13,311 +11,175 @@ Sau khi học xong chương này người học có khả năng:
 - Trình bày tình hình sản xuất và xu hướng phát triển của ngành công nghiệp bao bì và công nghệ sản xuất bao bì trên thế giới
 
 1.1 ĐẶC ĐIỂM CHUNG
-
 1.1.1 Đặc điểm chung của bao bì
-
 Với một hình dáng hấp dẫn và kích cỡ đúng, bao bì chứa đựng và bảo vệ sản phẩm từ lúc sản xuất, trong suốt quá trình vận chuyển đến khi phân phối lẻ cho người tiêu dùng.
-
 Để đảm bảo việc phân phối, quảng bá, bao bì phải cung cấp những thông tin cần thiết về nhà sản xuất, mô tả và giải thích cách dùng sản phẩm chứa đựng bên trong.
-
 Rất nhiều các phát minh, các tiến bộ của khoa học, kỹ thuật ở nhiều lĩnh vực khác nhau như: hóa học, vật liệu, công nghệ thông tin, công nghệ chế tạo thiết bị, tự động hóa, điều vận và cả những xu hướng quảng cáo, tiếp thị, mỹ thuật ứng dụng đều được áp dụng trong quá trình thiết kế và sản xuất bao bì.
-
 Khi có những yêu cầu mới cho bao bì, vật liệu bao bì mới được phát triển để đáp ứng yêu cầu mới, kéo theo sự phát triển của các phương pháp gia công mới; phương pháp gia công mới phát triển các thiết bị mới, thiết bị mới đưa đến kết quả là chất lượng sản phẩm tốt hơn, chất lượng tốt hơn mở ra thị trường mới đòi hỏi phải thay đổi bao bì. Và chu trình này cứ lặp lại.
-
 Trong thời đại hiện nay, bao bì đi sâu vào tất cả các lĩnh vực trong đời sống con người, tất cả các sản phẩm đều cần bao bì. Nhìn vào mức độ phát triển của công nghiệp bao bì có thể đánh giá mức độ phát triển kinh tế, kỹ thuật của một quốc gia.
 
 1.1.2 Tính năng của bao bì
-
 Như định nghĩa ban đầu bao bì phải đảm bảo khả năng chứa đựng và bảo vệ sản phẩm bên trong suốt vòng đời của mình, ngoài ra bao bì phải cung cấp các thông tin về sản phẩm và là một công cụ quảng cáo quan trọng cho hàng hóa.
 
 1.1.2.1 Tính năng chứa đựng sản phẩm
-
 Bao bì dùng để chứa đựng sản phẩm, đảm bảo sản phẩm bên trong không rò rỉ thất thoát, không biến dạng. Để đáp ứng chức năng này, bao bì phải có kích thước phù hợp với kích thước của sản phẩm chứa bên trong, phải có khả năng đóng kín, phương pháp đóng kín; cùng kiểu dáng phải phù hợp với tính chất của sản phẩm. Bao bì có dạng trực tiếp chứa đựng sản phẩm, có dạng khác chứa sản phẩm đã được đóng gói. Tùy thuộc vào mức độ trực tiếp hay gián tiếp chứa đựng sản phẩm mà bao bì chia thành:
 - Bao bì cấp 1: là những loại bao bì trực tiếp chứa đựng sản phẩm. Ví dụ: lon, chai thủy tinh, túi gói nhựa.
-
 - Bao bì cấp 2: là bao bì chứa đựng bao bì cấp 1.Ví dụ: hộp giấy, thùng carton...
-
 - Bao bì cấp 3: là những container và kiện lớn chứa nhiều bao bì cấp 2. Ví dụ: Các thùng carton dợn sóng, các kiện gỗ, các container thép...
 
 1.1.2.2 Tính năng bảo vệ
-
 Ngoài tính năng chứa đựng, bao bì có một tính năng cơ bản khác là tính năng bảo vệ sản phẩm từ khi đóng gói, trong suốt quá trình vận chuyển cho đến lúc sử dụng sản phẩm. Để đảm bảo khả năng bảo vệ sản phẩm, trước hết bao bì phải bền với các tác nhân cơ học, giữ cho bản thân bao bì không bị hư hỏng: không bị xẹp, vỡ, bục, hở, sau đó bao bì phải ngăn cản các tác nhân từ môi trường bên ngoài tác động đến sản phẩm bên trong và phải đảm bảo bao bì không có các tương tác hóa học với sản phẩm dẫn đến sự biến chất của sản phẩm, điều này đặc biệt quan trọng với bao bì thực phẩm và dược phẩm. Để đảm bảo tính năng bảo vệ sản phẩm bên trong, cần xem xét kỹ khi lựa chọn kiểu dáng và vật liệu bao bì.
-
 Xét ở khía cạnh bảo vệ bản thân bao bì, cần chú ý các yếu tố sau:
-
 - Kích thước bao bì
-
 - Sức bền chống lại tài lực từ các phía của bao bì
-
 - Khả năng hấp thụ chấn động của bao bì
-
 - Sức bền khi bị đánh rơi của bao bì
-
 - Sức chống đỡ lực chà xát của vật liệu
-
 - Sức chống đỡ lực đâm thủng của vật liệu
-
 Xét ở khía cạnh bao bì phải bảo vệ sản phẩm bên trong, giữ sản phẩm nguyên vẹn như ban đầu, kéo dài thời gian bảo quản, các yếu tố sau đây cần được lưu ý:
-
 - Độ bền cơ học của vật liệu bao bì
-
 - Độ bền kéo đứt của vật liệu bao bì
-
 - Tính ngăn cản hơi nước của vật liệu bao bì phải phù hợp với đặc điểm sản phẩm
-
 - Tính chống thấm dầu mỡ của vật liệu bao bì phải phù hợp với đặc điểm sản phẩm
-
 - Tính giữ mùi của vật liệu bao bì phải phù hợp với đặc điểm sản phẩm
-
 - Tính ngăn cản oxy của vật liệu bao bì phải phù hợp với đặc điểm sản phẩm
-
 - Độ chịu nhiệt của vật liệu bao bì phải phù hợp với đặc điểm bảo quản và sử dụng sản phẩm
-
 - Tính tương tác hóa học giữa sản phẩm và nguyên liệu bao gói.
 
 1.1.2.3 Tính năng thông tin về sản phẩm.
-
 Các thông tin về sản phẩm phải được thể hiện trên bao bì, giúp người tiêu dùng nhận biết, hiểu về sản phẩm và biết cách sử dụng sản phẩm; đây không chỉ là yêu cầu mà thậm chí được quy định thành các luật định về thông tin thể hiện trên bao bì sản phẩm. Để đảm bảo khả năng thể hiện thông tin trên bao bì cần chú ý các yếu tố:
-
 - Khả năng thực hiện in ấn trên bề mặt sản phẩm: khả năng nhận mực của bề mặt vật liệu, tính chất quang học của vật liệu, diện tích của bề mặt bao bì...
-
 - Thông tin của người sản xuất
-
 - Thành phần, tính chất của sản phẩm
-
 - Chỉ dẫn sử dụng và bảo quản.
-
 - Khả năng nhìn thấy sản phẩm bên trong của bao bì.
 
 1.1.2.4 Tính năng quảng cáo nhãn hiệu, sản phẩm
-
 Ngoài việc cung cấp thông tin về sản phẩm, bao bì còn là một công cụ quảng cáo hữu hiệu cho sản phẩm. Việc thay đổi kiểu dáng cũng như các thiết kế đồ họa cho bao bì ảnh hưởng trực tiếp đến tính hấp dẫn của bao bì lên người tiêu dùng, qua đó ảnh hưởng đến doanh số bán hàng. Các yếu tố cần quan tâm khi muốn tăng hiệu quả quảng cáo của bao bì là:
-
 - Ấn tượng về kiểu dáng, kích cỡ.
-
 - Biểu hiện về chất lượng sản phẩm.
-
 - Giá trị trưng bày.
-
 - Cổ động khuyến trương cho nhãn hiệu.
-
 - Trang trí, màu sắc
-
 - Chất lượng in ấn.
-
 - Khả năng nhìn thấy sản phẩm bên trong.
 
 1.1.2.5 Tính hiệu quả và tiện lợi khi sử dụng
-
 Ngoài bốn tính năng cơ bản trên, bao bì ngày càng được cải tiến để thuận tiện hơn cho người sử dụng và hiệu quả hơn (sản xuất nhanh và giá thành hạ, dễ dàng lưu kho, vận chuyển và phân phối, vật liệu sử dụng không gây các hậu quả xấu cho con người và môi trường).
-
 Tính hiệu quả được thể hiện qua các yếu tố sau:
-
 - Có khả năng sản xuất và đóng gói tự động: kiểu dáng, kích thước và vật liệu bao bì phù hợp với các hệ thống định hình bao bì và hệ thống đóng gói tự động.
-
 - Phù hợp với các quy định: vật liệu sử dụng được chấp nhận về mặt môi sinh, các thông số kỹ thuật của bao bì phải phù hợp với các quy định và luật định hay các chuẩn quốc gia hoặc chuẩn quốc tế, ví dụ như dư lượng cho phép các chất độc hại, sai số cho phép về khối lượng, thể tích...
-
 - Bao bì có khả năng hủy bỏ.
-
 - Nguyên liệu bao bì có khả năng tái chế
-
 - Bao bì thuận tiện cho việc vận chuyển, chất dỡ, lưu kho, phù hợp với phương tiện vận chuyển, tận dụng được tối đa diện tích và thể tích chứa của các phương tiện vận chuyển. Muốn vậy cần lưu ý khi lựa chọn kiểu dáng và kích cỡ của bao bì vận chuyển và số lượng bao bì cấp thấp hơn được đóng vào bao bì vận chuyển; các yếu tố này phải phù hợp với đặc điểm và kích thước của phương tiện vận chuyển như thùng xe, container, các giá kệ chất xếp trong kho.
-
 - Bao bì phù hợp với điều kiện bảo quản trong quá trình vận chuyển: Để đáp ứng được yêu cầu này, cần chọn các vật liệu, đặc biệt là vật liệu của bao bì vận chuyển (bao bì cấp 3), phù hợp với các điều kiện môi trường (nhiệt độ, độ ẩm, áp suất...) trong quá trình vận chuyển và lưu kho, không bị biến chất dưới tác động của các điều kiện môi trường.
-
 - Bao bì thuận tiện cho quá trình phân phối: Sản phẩm được phân phối đến đại lý theo một số lượng bao gói nhất định đóng gói trong bao bì cấp 2 hoặc cấp 3 như thùng carton dợn sóng... Sản phẩm được phân phối tới người tiêu dùng theo từng sản phẩm hoặc một số lượng sản phẩm đóng gói trong bao bì cấp 2 hoặc cấp 1. Tùy thuộc vào sản phẩm và thói quen sử dụng, mua sắm của khách hàng, phải chọn phương án đóng gói và tách gói (số lượng sản phẩm trong bao bì và kích thước kiểu dáng bao bì) thuận tiện cho việc phân phối.
-
 Tính tiện lợi trong sử dụng thể hiện qua các yếu tố:
-
 - Dễ mở
-
 - Có khả năng đóng mở nhiều lần: nắp vặn, nhãn dán...
-
 - Có thể đo lường khối lượng, thể tích sản phẩm bên trong khi đóng gói và khi sử dụng (chia vạch trên chai, kèm các dụng cụ đo lường, đo lường bằng nắp đậy...)
-
 - Có khả năng tái sử dụng
-
 - Thuận tiện cất trữ trong khi sử dụng.
-
 - Tích hợp vào bao bì các dụng cụ cần thiết cho quá trình sử dụng: ống hút, dao cắt...
-
 - Bao bì có khả năng bảo hiểm đối với trẻ em.
 
 1.1.3 Phân loại bao bì
-
 Bao bì có thể được phân loại theo nhiều cách khác nhau
-
 1.1.3.1 Phân loại theo mục đích sử dụng
-
 Theo mục đích sử dụng, bao bì có thể được phân loại thành: bao bì vận chuyển, bao bì sản xuất, bao bì tiêu thụ.
-
 - Bao bì vận chuyển: Là các dạng bao bì dùng để vận chuyển, lưu kho và bảo quản sản phẩm trong kho và trong quá trình vận chuyển. Bao bì vận chuyển thường là một đơn vị trong quá trình vận chuyển: như các container, thùng carton dợn sóng, thùng gỗ... Về kích thước, bao bì vận chuyển có dạng kích thước nhỏ, và kích thước lớn. Bao bì vận chuyển kích thước nhỏ thường được xếp trên các palet kích thước 1200 x 1000 x 1200mm, bao bì vận chuyển kích thước lớn là bao bì có kích thước lớn hơn kích thước trên. Bao bì vận chuyển có loại dùng một lần như các bao tải hoặc thùng carton dợn sóng và có loại dùng nhiều lần như các dạng container, thùng gỗ, thùng sắt...
-
 - Bao bì sản xuất: là dạng bao bì dùng để chứa các nguyên vật liệu, các chi tiết, bán thành phẩm, các vật tư thừa, dùng cho việc lưu kho, vận chuyển, trung chuyển giữa các xưởng của nhà máy, hay giữa các nhà máy. 
-
 Bao bì tiêu thụ: là bao bì dùng cho quá trình bán sản phẩm, bao bì tiêu thụ là một thành phần của sản phẩm, giá thành của bao bì tiêu thụ được tính vào giá của sản phẩm. 
 Bao bì tiêu thụ có chức năng chứa đựng và bảo vệ sản phẩm trước các tác nhân môi trường. Cấu trúc, kích thước và vật liệu của bao bì tiêu thụ được lựa chọn phù hợp với tính chất, hình dạng và kích thước của sản phẩm. Bao bì tiêu thụ là bao bì được trưng bày trên kệ hàng trong quá trình bán hàng và được chuyển cho khách hàng sau khi bán nên chức năng quảng cáo và thông tin sản phẩm là hai chức năng quan trọng nhất của bao bì tiêu thụ.
 Bao bì tiêu thụ có thể tích, kích thước giới hạn. Kích thước của bao bì tiêu thụ được tính toán phụ thuộc vào hình dạng và kích thước của sản phẩm, số lượng sản phẩm chứa trong bao bì tiêu thụ (số lượng sản phẩm cho 1 lần bán hàng), khoảng dịch chuyển của sản phẩm. Mặt khác, kích thước của bao bì tiêu thụ phải được tính toán để khi đóng gói vào bao bì vận chuyển sẽ tận dụng tối đa thể tích, diện tích của bao bì và các phương tiện vận chuyển; phù hợp với các kệ hàng, kệ lưu trữ trong kho.
 
 1.1.3.2 Phân loại theo vật liệu
-
 Vật liệu bao bì rất đa dạng: từ giấy bìa, tấm carton dợn sóng, nhựa bao gồm màng nhựa và các dạng chai, thùng từ nhựa, đến thủy tinh, kim loại, gỗ ...
-
 - Bao bì từ giấy: Đây là loại bao bì chiếm thị phần khá lớn trong tổng sản lượng bao bì (từ 40% -50% tùy thuộc vào từng vùng thị trường). Bao bì giấy gồm các dạng hộp làm từ giấy bìa, các dạng thùng carton dợn sóng, các dạng hộp cao cấp làm từ vật liệu carton cứng, các dạng túi giấy, nhãn hàng, các dạng bao bì mềm từ vật liệu phức hợp đế giấy.
-
 + Bao bì mềm đế giấy: Do giấy có tính dễ in, khả năng dựng hình tốt, độ cứng cao nên các dạng bao bì mềm đế giấy thường được sử dụng làm bao bì cấp một chứa đựng các dạng chất lỏng như sữa, nước trái cây. Giấy dạng cuộn sau khi in thường được ghép với các loại màng nhằm tăng tính chống thấm ẩm, đảm bảo khả năng hàn kín bao bì, sau đó cuộn vật liệu được chuyển sang hệ thống định hình riêng hoặc được định hình, hàn kín trên dây chuyền đóng gói(hình 1.1).
-
 + Bao bì hộp làm từ giấy bìa: đây là nhóm chiếm thị phần lớn, thường được dùng làm bao bì cấp 2, bao bì tiêu thụ, do đó đây là nhóm bao bì có kiểu dáng và thiết kế đồ họa phong phú. Các tờ giấy được in hình ảnh lên trên bề mặt sau đó tiến hành định hình (cấn; bế) thành các mảnh, tiếp theo là dán ghép các mép hộp với nhau. Các nhà sản xuất hàng tiêu dùng sẽ dựng hộp, đóng gói sản phẩm, dán hoặc cài nắp đáy hộp.
-
 + Thùng carton dợn sóng là dạng thùng giấy, với yêu cầu chịu lực cao, thường là dạng bao bì vận chuyển và được làm từ carton dợn sóng. Bao bì carton dợn sóng - một dạng bao bì vận chuyển, chức năng quan trọng được quan tâm đầu tiên là khả năng chịu lực, chịu chất xếp cao. Đây là yêu cầu thiết yếu mà khách hàng đòi hỏi các nhà cung cấp đáp ứng đúng.
-
 Để đảm bảo tính chất chịu lực trong quá trình vận chuyển, yếu tố quan trọng cần xem xét là tấm carton dợn sóng; để đảm bảo việc đóng gói có hiệu quả thùng được làm từ tấm carton có cấu trúc ổn định, phẳng, cách đóng mở thích hợp.
-
 Tấm carton dợn sóng là vật liệu ghép các lớp giấy phẳng và lớp sóng ở giữa để tạo độ cứng. Có nhiều loại sóng khác nhau, chúng kết hợp với nhau tạo thành carton 3, 5, 7 lớp.
-
 Sản xuất thùng carton dợn sóng bắt đầu từ quá trình tạo sóng và ghép các lớp giấy sóng và lớp giấy phẳng để tạo tấm carton dợn sóng. Tấm carton dợn sóng sau khi in được tiến hành cấn lần xẻ rãnh đối với những thùng đơn giản hoặc cấn bế với các thùng phức tạp, các thùng được ghép hoặc dán mí, giống như các dạng hộp từ giấy bìa, thùng được dựng trong quá trình đóng gói.
-
 + Túi giấy: Do các quy định ngày càng nghiêm ngặt của việc bảo vệ môi trường, trong các cửa hàng, túi giấy là một giải pháp kinh tế thay thế túi nhựa.
-
 - Bao bì mềm (bao bì làm từ màng nhựa): bao gồm các dạng túi, bao gói được sản xuất từ vật liệu là màng nhựa. Nhờ tính chất chống thấm ẩm, mỡ, khí tốt, giá thành thấp, tính trơ hóa học cao, độ bền với các tác nhân xé, ma sát, mài mòn, khả năng hàn kín cao của màng nhựa mà bao bì mềm từ màng nhựa thường được sử dụng làm bao bì cấp 1, chứa đựng các sản phẩm thực phẩm, hóa mỹ phẩm, dược phẩm...
-
 Quá trình sản xuất bao bì mềm có tính tự động hóa cao từ công đoạn sản xuất màng, in trên màng, ghép các lớp màng để tạo vật liệu màng phức hợp đến chia cuộn, định hình và hàn dán túi.
-
 - Bao bì thủy tinh: Với ưu điểm không tương tác với sản phẩm chứa đựng bên trong, tính cản ẩm và khí tốt, khả năng định hình đa dạng, trong suốt cho phép nhìn thấy sản phẩm bên trong, bao bì thủy tinh thường được sử dụng làm bao bì cấp 1, chứa các sản phẩm dạng lỏng hoặc dạng kem có yêu cầu cao về điều kiện, thời gian bảo quản và yêu cầu nghiêm ngặt về tiêu chuẩn hóa lý như các thức uống, thực phẩm, dược phẩm, hóa mỹ phẩm. Do hình thù phức tạp của các chai thủy tinh và bề mặt thủy tinh khó bám mực nên việc in ấn trực tiếp lên các chai thủy tinh khá khó khăn. Thông thường, bao bì thủy tinh được định hình, đóng gói và dán nhãn. Bao bì thủy tinh thường kết hợp với các dạng nút, nắp đóng kín khác nhau.
-
 - Bao bì kim loại: Bao bì kim loại có độ bền và khả năng đóng kín tốt giúp bảo quản những sản phẩm yêu cầu bảo quản trong thời gian lâu, thích hợp sử dụng làm bao bì cấp 1 cho những sản phẩm thực phẩm, nước giải khát... Tuy nhiên, nhược điểm của dạng bao bì này là tính oxy hóa cao, phải sử dụng phương pháp in đặc chủng để in lên bao bì.
-
 Bao bì kim loại có thể được in trên tấm kim loại, sau đó tấm đã được in sẽ được định hình (tạo ống, ghép mí, dập ghép nắp và đáy...); hoặc một cách khác, ống được tạo từ thiết bị tạo ống sau đó mới tiến hành in và dập ghép nắp đáy...)
 
 1.1.3.3 Phân loại theo phương pháp đóng gói
-
 Theo phương pháp đóng gói, bao bì có thể được phân loại thành:
-
 . Bao bì đóng gói chân không
-
 . Bao bì đóng gói vô trùng
-
 . Cuốn vặn
-
 . Màng co
-
 . Blister hay bao bì dạng vỉ (kiểu bao bì mà theo đó, một vỏ bọc trong suốt được dán lên bìa cứng)
 
 1.1.3.4 Phân loại theo độ cứng
-
 . Bao bì cứng (rigid packaging): thùng, hộp kim loại, chai thủy tinh, thùng gỗ.....
-
 . Bao bì nửa cứng (semi rigid packaging): thùng carton dợn sóng, thùng nhựa
-
 . Bao bì mềm (flexible packaging): bao bì giấy, nhựa, cellophane
 
 1.1.3.5 Phân loại theo sản phẩm chứa đựng bên trong
-
 . Thực phẩm
-
 . Mỹ phẩm
-
 . Quần áo
-
 . Dược phẩm
-
 . Rượu bia, thức uống
-
 . Đồ gia dụng
-
 . Hoá chất ....
 
-
 1.1.3.6 Phân loại theo mức độ tiếp xúc với sản phẩm:
-
 - Bao bì cấp 1: là những loại bao bì tiếp xúc trực tiếp với sản phẩm
-
 - Bao bì cấp 2: là bao bì đóng gói các bao bì cấp 1 riêng lẻ lại với nhau.
-
 - Bao bì cấp 3: là những container và kiện lớn chứa nhiều bao bì cấp 2 riêng lẻ.
-
 Việc phân cấp bao bì theo cách này liên quan đến việc phát triển hệ thống bao bì cho một sản phẩm cụ thể. Với mỗi sản phẩm cụ thể người ta không chỉ thiết kế một cấp bao bì mà luôn xác định cả ba cấp bao bì như các thành tố không thể tách rời, có mối liên hệ mật thiết cả về cấu trúc lẫn các hình ảnh đồ họa. Kiểu dáng, kích thước của bao bì cấp 2 được lựa chọn dựa vào hình dáng kích thước của bao bì cấp 1; hình dáng kích thước và vật liệu của bao bì cấp 3 được phát triển dựa trên đặc điểm của bao bì cấp 2. Các ý tưởng thiết kế đồ họa thường mang tính thống nhất và liên kết giữa các cấp của bao bì.
 
 1.2 THỊ TRƯỜNG BAO BÌ VÀ XU HƯỚNG PHÁT TRIỂN
-
 1.2.1 Thị trường bao bì thế giới và xu hướng phát triển (theo thống kê và dự báo của Pira International)
-
 Tổng doanh số thị trường bao bì thế giới đạt 578 tỷ đô la Mỹ vào năm 2007; trong giai đoạn 2003-2007, mức tăng trưởng bình quân 7.7%/năm; năm 2009 doanh số đạt 633.7 tỷ đô la Mỹ; năm 2010 - 670 tỷ đô la Mỹ (nguồn Pira International).
-
 Theo dự báo của Pira International, doanh số bao bì đến năm 2014 sẽ đạt mức 739.9 tỷ đô la Mỹ, dự báo mức tăng trưởng trung bình trong giai đoạn 2009-2014 là 3,1%, đến năm 2016 dự báo con số này sẽ là 820 tỷ đô la.
-
 - Phân bố và xu hướng thị trường bao bì theo vùng địa lý
-
 + Tây Âu là thị trường bao bì lớn nhất chiếm 30,2% tổng doanh số thị trường bao bì thế giới; đứng thứ nhì là Bắc Mỹ chiếm 26%; tiếp theo là Châu Á Thái Bình Dương - chiếm 25,5% (năm 2009).
-
 + Mỹ là quốc gia có doanh thu thị trường bao bì cao nhất - chiếm 21.2%, Nhật và Trung Quốc là quốc gia đứng thứ 2 và thứ 3. Năm thị trường chính của Tây Âu là Đức, Pháp, Ý, Tây Ban Nha, và Anh Quốc cũng là các thị trường lớn tiếp theo của Thế giới. Theo dự báo, châu Á Thái Bình Dương sẽ vượt qua Tây Âu trở thành khu vực dẫn đầu thị trường bao bì trong giai đoạn 2009-2014 với hai thị trường có mức tăng trưởng cao là Trung Quốc và Ấn Độ.
-
 + Mỹ vẫn là quốc gia có thị trường bao bì lớn nhất thế giới trong giai đoạn 2009-2014, nhưng Trung Quốc sẽ vượt qua Nhật Bản lên chiếm vị trí thứ hai. Dự báo 10 quốc gia đứng đầu thị trường bao bì trong giai đoạn 2009-2014 lần lượt là: Mỹ, Trung Quốc, Nhật Bản, Đức, Pháp, Ý, Tây Ban Nha, Anh, Brazill và Canada.
-
 - Phân bố xu hướng thị trường bao bì theo vật liệu
-
 + Các dạng bao bì giấy chiếm thị phần lớn nhất - 210 tỷ USD (năm 2010) và dự báo sẽ tăng thêm 40tỷ USD, đạt 250 tỷ USD vào năm 2016
-
 + Các bao bì nhựa dạng cứng (chai lọ, can, thùng nhựa) đứng vị trí thứ 2 -144 tỷ USD chiếm 21% tổng doanh năm 2010 và dự báo là thị trường có mức tăng trưởng mạnh nhất vì các chai, lọ, hũ nhựa sẽ thay thế cho các bao bì kim loại trong đóng gói thực phẩm, mỹ phẩm và dược phẩm, dự kiến sẽ đạt 200 tỷ USD vào năm 2016.
-
 + Trong khi đó, thị trường bao bì mềm đạt 130 tỷ USD năm 2010 dự báo tăng đến 163 USD vào năm 2016, với mũi nhọn là màng nhôm và màng mạ kim loại.
-
 + Bao bì kim loại chiếm 15% thị trường (2010) nhưng sẽ phải chia sẻ một phần thị trường cho bao bì nhựa cứng nên sẽ còn chiếm 14% vào năm 2016.
-
 + Bao bì thủy tinh đạt 45 tỷ USD năm 2010, dự báo tăng lên 53 tỷ USD vào năm 2016
 
 1.2.2 Các yếu tố ảnh hưởng đến sự phát triển của bao bì
-
 Có năm nhóm yếu tố ảnh hưởng đến sự phát triển của bao bì:
-
 - Nhóm các yếu tố cá nhân bao gồm: sự thay đổi nhanh các thói quen và sở thích cá nhân, chú trọng đến sức khỏe cá nhân, áp lực thời gian và công việc, thay đổi thói quen ăn uống (ăn nhanh), tính cá thể hóa cao.
-
 - Nhóm các yếu tố xã hội: sự biến động dân số, xu hướng thành thị hóa, quy mô các hộ gia đình ngày càng nhỏ, sự khác biệt văn hóa, các mối đe dọa, dân trí.
-
 - Nhóm yếu tố kinh tế: sự phát triển kinh tế, tốc độ đầu tư vào lĩnh vực thiết bị bao bì và nghiên cứu vật liệu bao bì, yêu cầu về quảng cáo và phát triển thương hiệu...
-
 - Nhóm các yếu tố môi trường: sự biến đổi khí hậu, yêu cầu về sử dụng năng lượng hiệu quả, sự cạn kiệt nguồn tài nguyên, cần phát triển các nguồn năng lượng thay thế.
-
 - Nhóm các yếu tố công nghệ: Số hóa, thế giới ảo, thay đổi nhanh chóng mẫu mã, công nghệ nano, công nghệ sinh học, vật liệu bao bì mới.
 
 1.2.3 Các xu hướng phát triển của bao bì
-
 - Hạ giá thành bao bì: sử dụng ít nhất nguồn tài nguyên tự nhiên (giảm năng lượng trong quá trình sản xuất, giảm nguyên vật liệu thô..); sử dụng nguyên liệu có khả năng tái chế cao; tăng năng suất; tăng chất lượng bao bì
-
 - Bao bì phù hợp với xu hướng phát triển bền vững: Giảm sử dụng vật liệu thô; sử dụng vật liệu tái chế; sử dụng nguyên vật liệu có thể làm mới (renewable resources); sử dụng nhựa tự phân hủy sinh học (biodegradable); sử dụng mực in và keo gốc nước trong quá trình in và sản xuất bao bì thay thế cho mực, keo gốc dung môi; nâng cao chất lượng in; phát triển các dòng keo phù hợp với bề mặt không thấm hút; sử dụng các công nghệ sấy nhanh; các tiêu chuẩn đông lạnh thực phẩm..
-
 - Tăng tính hấp dẫn, tiện dụng và hiệu quả của bao bì với người tiêu dùng: 
-
 + Đưa vào bao bì các yếu tố để kích thích đa giác quan của người tiêu dùng: màu sắc, độ bóng, tính lấp lánh (thị giác), độ nhám, độ nổi (xúc giác), hương thơm (khướu giác)...
-
 + Phát triển bao bì một cách hệ thống, phù hợp hệ thống nhận diện thương hiệu, phù hợp với sản phẩm và các cấp bao bì
-
 + Tạo các thiết kế bao bì mang tính cá nhân hóa cao sử dụng công nghệ in kỹ thuật số
-
 + Tăng các hiệu ứng thị giác cho bao bì
-
 + Phát triển mực in và verni tráng phù phù hợp với bề mặt nhựa
-
 + Không ngừng sáng tạo các kiểu dáng cho bao bì
-
 + Thiết kế các bao bì có tính linh hoạt, đa dụng.
-
 + Đưa các hiệu ứng bóng, lấp lánh, độ sâu, nhám vào bao bì
-
 + Đem đến sự khác biệt trên bao bì: tạo trên bề mặt bao bì các hiệu ứng kép, tương phản bóng mờ, hiệu ứng gân cát, chìm nổi, thêm vào bao bì các chi tiết đặc biệt..
-
 - Kéo dài tuổi thọ bao bì và tăng khả năng bảo vệ sản phẩm của bao bì: thêm các tính năng cản ẩm, cản khí, giữ mùi hương, độ bền cơ học, kháng tia cực tím, kháng khuẩn, giữ nguyên vitamin và vị.
-
 - Phát triển dòng bao bì thông minh và bao bì tương tác.
 
 Chương 2: PHÁT TRIỂN HỆ THỐNG BAO BÌ CHO SẢN PHẨM
-
 Nội dung chính: Chương 2 giới thiệu quá trình, cách thức phát triển hệ thống bao bì (gồm từ bao bì cấp 1 đến bao bì cấp 3) với quan điểm hệ thống bao bì cho sản phẩm là một thể thống nhất từ trong ra ngoài. Hệ thống được phát triển nhằm chứa đựng, bảo vệ, thông tin và quảng cáo cho sản phẩm; ngoài ra, chúng còn phải đạt tính hiệu quả và tiện dụng. Vì vậy việc phát triển phải dựa trên cơ sở thu thập phân tích các thông tin liên quan, xác định các yêu cầu, đề xuất và lựa chọn các phương án. Để giúp người đọc có khả năng đề xuất và lựa chọn các phương án cho hệ thống bao bì, chương 2 còn cung cấp các thông tin về các kiểu dáng bao bì mềm, các kiểu dáng bao bì hộp gấp, các kiểu dáng bao bì carton dợn sóng, túi giấy và nhãn hàng, cùng cấu trúc, công năng, các tính năng đặc biệt, phạm vi ứng dụng, quy trình sản xuất, khả năng gia công tự động, khả năng đóng gói tự động của chúng.
-
 Mục tiêu chương: 
-
 Sau khi học xong chương này người học có khả năng:
-
 - Xác định được các thông tin cần thiết liên quan đến phát triển hệ thống bao bì cho một sản phẩm cụ thể 
 - Xác định các yêu cầu cho hệ thống bao bì của một sản phẩm cụ thể
 - Mô tả các kiểu dáng cùng cấu trúc, công năng, các tính năng đặc biệt, phạm vi ứng dụng, quy trình sản xuất của 5 kiểu dáng bao bì mềm cơ bản.
@@ -327,20 +189,13 @@ Sau khi học xong chương này người học có khả năng:
 - Ứng dụng các hiểu biết về các dạng bao bì nêu trên để đề xuất, lựa chọn phương án hệ thống bao bì thích hợp với các yêu cầu cho một sản phẩm
 
 2.1 QUÁ TRÌNH PHÁT TRIỂN HỆ THỐNG BAO BÌ CHO SẢN PHẢM
-
 2.1.1 Đặc điểm chung
-
 Công việc thiết kế bao bì phải được xem như một dự án, cần được phát triển một cách hệ thống, tuần tự từng bước: từ xác định yêu cầu và thu thập thông tin cần thiết đến đánh giá thông tin, thiết kế bao bì (hay nói cách khác là lựa chọn các phương án tối ưu cho bao bì) và kiểm tra thử nghiệm hoàn tất thiết kế.
-
 Bao bì cho một sản phẩm phải được phát triển như một hệ thống bao bì, bao gồm từ bao bì cấp 1 đến bao bì cấp 3, các bao bì trong hệ thống có mối quan hệ mật thiết với nhau cả về cấu trúc lẫn đồ họa.
-
 - Các thông số chủ yếu cần phải lựa chọn khi thiết kế bao bì là:
-
 + Các thông số về cấu trúc: bao gồm kiểu dáng, kích thước, vật liệu cho bao bì; đi kèm với chúng là các phương án sản xuất, phương án đóng gói, phương án bảo quản, phương án đảm bảo các điều kiện sử dụng đặc biệt.
 + Các thiết kế đồ họa: các hình ảnh, nội dung cần thể hiện (text), cách sắp xếp các thành phần lên bề mặt bao bì phù hợp với cấu trúc bao bì, làm nổi bật ý tưởng quảng cáo, đầy đủ các thông tin cần thiết theo quy định và luật định.
-
 - Hệ thống bao bì cho sản phẩm cần đảm bảo các yêu cầu sau:
-
 + Đảm bảo chức năng chủ yếu của bao bì: chứa đựng, bảo vệ, bảo quản, quảng cáo, tiện dụng, môi trường
 + Phù hợp với đặc điểm của sản phẩm chứa đựng bên trong.
 + Lựa chọn vật liệu thích hợp trên cơ sở nghiên cứu kỹ lưỡng về các nhóm tính chất của vật liệu, yêu cầu của bao bì và điều kiện lưu trữ bảo quản, vận chuyển
@@ -349,9 +204,7 @@ Bao bì cho một sản phẩm phải được phát triển như một hệ th�
 + Tính quảng cáo, hấp dẫn của bao bì
 
 2.1.2 Xác định các thông tin cần thiết
-
 - Thông tin về sản phẩm:
-
 + Kích thước và thể tích của sản phẩm bên trong
 + Sản phẩm có cần không gian để dịch chuyển, hay cứng, hoặc có thể nén được
 + Khối lượng sản phẩm
@@ -368,34 +221,23 @@ Bao bì cho một sản phẩm phải được phát triển như một hệ th�
 + Nhạy cảm với nhiệt độ quá cao hoặc quá thấp
 + Thay đổi màu sắc hay tính chất khi bị chiếu sáng
 + Tính chất hóa học của sản phẩm: tính axít, tính kiềm, hoạt tính hóa học...
-
 - Thông tin về khách hàng
-
 + Ai là người sử dụng (phụ nữ, đàn ông, độ tuổi, nhóm người nào)
 + Cần ngăn cản trẻ em hay không
-
 - Nhóm thông tin về các yếu tố quảng cáo, thông tin:
-
 + Đây là sản phẩm mới hay là một sản phẩm của một dòng sản phẩm đã có từ trước (người ta biết gì về sản phẩm này)
 + Dạng bao bì này thường được đối thủ cạnh tranh sử dụng hay không
 + Nhiều hay ít hình ảnh được yêu cầu in trên bao bì
-
 - Yếu tố sản xuất bao bì:
-
 + Tính dễ in - phương pháp in
 + Khả năng hàn dán đóng kín vật liệu
-
 - Nhóm thông tin về dây chuyền sản xuất bao bì và đóng gói
-
 + Tự động hay thủ công
 + Phương pháp đóng gói
 + Thiết bị đóng gói
 + Tốc độ đóng gói
-
 - Thông tin về quy định, luật định
-
 - Thông tin về quá trình, điều kiện lưu trữ, vận chuyển, phân phối, sử dụng sản phẩm
-
 + Điều kiện lưu trữ, phân phối: nhiệt độ, độ ẩm, áp suất, ánh sáng
 + Phương pháp tiệt trùng
 + Tiếp xúc với hóa chất không
@@ -403,15 +245,11 @@ Bao bì cho một sản phẩm phải được phát triển như một hệ th�
 + Có tiếp xúc với cácvi sinh: nấm mốc... không
 + Tiện lợi khi đóng mở, hoặc đóng mở nhiều lần
 + Cần pha chế, đo lường, trích... hay không
-
 - Giá thành cho phép
 
 2.1.3 Phân tích các thông tin xác định yêu cầu về bao bì
-
 Dựa trên các thông tin trên để xác định các yêu cầu cơ bản của bao bì, các yêu cầu đó chính là đích đến cho quá trình thiết kế bao bì. Bao gồm các nhóm yếu tố:
-
 2.1.3.1 Đặc điểm của sản phẩm bên trong
-
 - Các thông tin cần thu thập: "Thể tích của sản phẩm bên trong, sản phẩm cần không gian để dịch chuyển, hay cứng, hoặc có thể nén được, khối lượng sản phẩm". Yêu cầu cần xác định tương ứng: "Yêu cầu về kiểu dáng và kích thước bao bì"
 - Các thông tin cần thu thập: "Cấp độ của bao bì". Yêu cầu cần xác định tương ứng: "Yêu cầu thiết kế đồ họa: tính thống nhất khi thiết kế đồ họa hệ thống bao bì. Xác định kích thước bao bì: kích thước bao bì và khả năng chất xếp vào bao bì bên ngoài"
 - Các thông tin cần thu thập: "Sản phẩm là chất rắn, chất lỏng, bột hay kem: Nếu là chất khí phải quan tâm đến thể tích, áp suất khối lượng riêng, nhiệt độ. Nếu là chất lỏng, cần quan tâm đến độ nhớt, dính, khả năng tạo hơi, khối lượng riêng. Tính chất dễ vỡ của sản phẩm và sự chống va đập cần thiết khi vận chuyển. Bị hỏng khi mài mòn, va đập..". Yêu cầu cần xác định tương ứng: "Lựa chọn vật liệu lớp cấu trúc. Xác định yêu cầu về tính chất cơ lý (độ bền xé, trở lực va đập, độ bền kéo căng, độ cứng, độ bền thùng..) cho lớp vật liệu đóng vai trò lớp cấu trúc"
@@ -420,7 +258,6 @@ Dựa trên các thông tin trên để xác định các yêu cầu cơ bản c
 - Các thông tin cần thu thập: "Thay đổi màu sắc hay tính chất khi bị chiếu sáng". Yêu cầu cần xác định tương ứng: "Yêu cầu về vật liệu: Dùng vật liệu có khả năng cản sáng như màng nhôm hay metalized"
 
 2.1.3.2 Các yếu tố về marketing
-
 - Các thông tin cần thu thập: "Đây là sản phẩm mới hay là một sản phẩm của một dòng sản phẩm đã Có từ trước (người ta biết gì về sản phẩm này). Dạng bao bì này thường được đối thủ cạnh tranh sử dụng hay không. Nhiều hay ít hình ảnh được yêu câu in trên bao bì". Yêu cầu cần xác định tương ứng: "Yêu cầu thiết kế đồ họa cho bao bì Yêu cầu thông tin cần trình bày trên bao bì"
 
 2.1.3.3 Yếu tố sử dụng sản phẩm
@@ -442,134 +279,78 @@ Dựa trên các thông tin trên để xác định các yêu cầu cơ bản c
 - Các thông tin cần thu thập: "Tiếp xúc với các vi sinh: nấm mốc...".
 
 2.1.4 Lựa chọn các phương án
-
 Lựa chọn phương án cấu trúc cho hệ thống bao bì từ cấp 1 đến cấp 3: Các thông số về cấu trúc bao gồm kiểu dáng, kích thước, vật liệu cho bao bì, đi kèm với chúng là các phương án sản xuất, phương án đóng gói, phương án bảo quản, phương án đảm bảo các điều kiện sử dụng đặc biệt.
-
 - Chọn kiểu dáng bao bì: Cần tham khảo các mẫu túi, bao gói (của bao bì mềm - bao bì cấp 1); các kiểu dáng chai, lọ (bao bì nhựa cứng - bao bì cấp 1); các mẫu hộp từ giấy bìa (cho bao bì cấp 2); các mẫu thùng carton dợn sóng (bao bì cấp 3). Với mỗi mẫu cần xem xét các đặc điểm liên quan đến công năng sử dụng, khả năng đóng gói tự động, các đặc điểm về tính tiện dụng, đối chiếu các tính năng của mẫu với yêu cầu của bao bì để lựa chọn.
-
 - Lựa chọn kích thước:
-
 + Kích thước bao bì cấp 1 được lựa chọn dựa trên kích thước, thể tích của sản phẩm, tính chất định hình hay vô định hình của sản phẩm.
 + Kích thước của bao bì cấp 2 được lựa chọn dựa trên kích thước và số lượng sản phẩm đóng gói trong bao bì.
 + Khi chọn kích thước của bao bì cấp 3 phải chú ý đến kích thước và số lượng bao bì cấp 2 đóng gói trong bao bì cấp 3. Thêm nữa, phải tính toán tính thích hợp của bao bì câp 3 với kích thước của các kệ chất xếp, kệ lưu kho hoặc kích thước của container khi vận chuyển.
-
 - Lựa chọn vật liệu:
-
 + Khi lựa chọn vật liệu của bao bì cấp 1, điểm cần quan tâm nhất là tính chất hóa lý của vật liệu, tính tương tác của vật liệu với sản phẩm bên trong, khả năng ngăn cản khí, âm, ánh sáng của vật liệu, khả năng hàn kín.
 + Vật liệu của bao bì cấp 2 thường là bao bì tiêu thụ, nên ngoài các yêu cầu về khả năng chịu lực, độ bền nén, vấn đề cần quan tâm là khả năng in ấn của vật liệu.
 + Vật liệu bao bì cấp 3 thường là bao bì vận chuyển nên điểm cần quan tâm nhất là sức bền chống lại tài lực từ các phía, khả năng hấp thụ chấn động của vật liệu bao bì, sức bền chịu đựng khi bị đánh rơi của bao bì, sức chống đỡ lực chà xát của vật liệu, sức chống đỡ lực đâm thủng của vật liệu.
 
 2.2 ĐẶC ĐIỂM CÁC DẠNG BAO BÌ, QUY TRÌNH SẢN XUẤT VÀ PHẠM VI ỨNG DỤNG - CƠ SỞ ĐỀ XUẤT PHƯƠNG ÁN BAO GÓI
-
 2.2.1 Bao bì mềm
-
 Bao bì chất dẻo là bao bì chế tạo từ nhựa dẻo. Từ hạt nhựa có thể tạo ra các vật liệu cho bao bì mềm là màng nhựa. Bao bì mềm thường được chọn là bao bì cấp 1, đóng gói các sản phẩm thực phẩm, hóa dược phẩm, các sản phẩm có dạng bột, kem, lòng.
-
 Bao bì mềm có thể được tạo từ bao bì màng đơn, nhưng do đòi hỏi cao về tính chất hóa lý, mà hầu như phần lớn bao bì mềm đều sử dụng màng ghép phức hợp. Bao bì màng ghép phức hợp có ưu điểm là cộng hưởng tính chất hóa lý của các lớp màng thành phần, có khả năng đáp ứng nhiều yêu cầu về tính chất bao bì mà một màng đơn không thể đáp ứng được.
-
 Bao bì mềm có thể được giao cho khách hàng theo dạng cuộn hoặc dạng túi. Với bao bì dạng cuộn, toàn bộ quá trình định hình túi, đóng gói và hàn túi được thực hiện trên dây chuyền đóng gói tại doanh nghiệp sản xuất hàng tiêu dùng. Với bao bì dạng túi, quá trình định hình, hàn dán được tiến hành tại doanh nghiệp sản xuất bao bì. Các kiểu túi thông dụng bao gồm: túi hàn dán ba biên, túi hàn lưng và hàn chân đầu, túi hàn lưng xếp hông, túi đứng, túi có khóa kéo (zipper).
-
 Túi hàn dán ba biên và hàn lưng hàn chân đầu thường sử dụng cho các dạng bao bì thực phẩm, có thể tích nhỏ như: bánh kẹo, mì gói, các dạng thực phẩm tươi sống, bột nêm (hình 2.1; 2.2 và 2.3)... Với sản phẩm hàng tiêu dùng có thể tích lớn hơn như khăn giấy, tã lót, băng vệ sinh, xà phòng bột ... thường sử dụng bao bì hàn lưng, hàn chân đầu có xếp hông tạo khoảng trống để tăng thể tích chứa của bao bì (hình 2.4). Các dạng túi đứng thường sử dụng cho việc đóng gói các sản phẩm lỏng hoặc dạng kem do khả năng đứng được trên mặt phẳng của túi (hình 2.5).
-
 Túi zipper là loại túi có khóa thường được hàn ở miệng túi, các khóa này hỗ trợ đóng kín lại sau khi đã cắt miệng túi (hình 2.6)
-
 Ngoài ra, để hỗ trợ các tính năng khác như: để dễ mở - người ta tạo các đường hỗ trợ xé; để có thể đóng mở nhiều lần - sử dụng thêm nắp vặn, nhãn dán...; để đo lường khối lượng, thể tích sản phẩm bên trong khi đóng gói và khi sử dụng - chia vạch trên chai, đóng gói kèm các dụng cụ đo lường, đo lường bằng nắp đậy.
-
 Quy trình sản xuất bao bì mềm bao gồm các công đoạn chủ yếu: thiết kế bao bì, sản xuất màng, chế bản, in, ghép màng và thành phẩm túi (định hình, hàn túi).
 
 2.2.2 Bao bì hộp từ giấy bìa
-
 Là bao bì dạng hộp được sản xuất từ giấy bìa (giấy có định lượng lớn hơn 160 g/m²). Hộp bao gồm một hay nhiều mảnh được cấn và bế. Các đường bế tạo đường viền mảnh hộp, các đường cấn tạo đường nếp để gấp hộp, các mảnh bế sau đó có thể được gấp và dán. Các hộp sau khi gấp dán được lưu trữ và vận chuyển đến khách hàng ở thể phẳng, sau đó được dựng thành hộp trong quá trình đóng gói.
-
 Các mảnh bế là các mảnh phẳng có các đường viền được cắt theo hình dạng trải phẳng của hộp. Các đường phân cách giữa các diện của hộp là các đường cần có nhiệm vụ tạo nếp gấp, các đường này là cơ sở cho việc dựng hộp từ khổ phẳng sang không gian ba chiều.
-
 Do tính dễ vận chuyển, lưu trữ nên các dạng hộp hình hộp chữ nhật được sử dụng rộng rãi trong công nghiệp và cuộc sống. Ngoài bao bì dạng hình hộp chữ nhật, với đặc tính dễ định hình của giấy bìa và khả năng linh hoạt của quá trình cấn bế, và yêu cầu hấp dẫn người tiêu dùng, bao bì hộp từ giấy bìa có rất nhiều hình dạng khác nhau.
-
 Các mẫu hộp khá phong phú, từ những dạng hộp cơ bản có thân là hình hộp chữ nhật với nắp (đáy) dán đơn giản thuận tiện khi đóng gói trên dây chuyền tự động, đến các kiểu hộp có thân là những hình đặc biệt như lăng trụ đáy lục giác, bát giác hay hình chóp, chóp cụt với các kiểu nắp cài xoăn đặc biệt tạo hình như những bông hoa, từ các dạng hộp có dạng trụ ống đến các dạng hộp dạng khay nông. Để tạo thuận tiện cho việc lựa chọn kiểu dáng bao bì hộp, trong quá trình phát triển hệ thống bao bì cần tham khảo các bộ thư viện về kiểu dáng bao bì.
-
 Một trong những thư viện mẫu hộp được sử dụng thông dụng nhất là European Carton Makers Association code book. Đây là thư viện các mẫu hộp đã được ECMA thu thập, phân nhóm và mã hoá.
-
 ECMA code book mã hóa các dạng hộp cơ bản theo các nhóm như sau:
-
 - A- Các dạng hộp hình hộp chữ nhật, được dán nối ở cạnh hông, các mặt hộp kế cạnh nhau nằm trên những mặt phẳng vuông góc với nhau.
-
 - B- Các dạng hộp hình hộp chữ nhật không có các mối dán hông, dạng khay. Việc ghép nối các cạnh được hình thành bởi các kiểu gài khác nhau, hoặc dán ở góc.
-
 - C- Các dạng hộp không phải là hình hộp chữ nhật, được dán nối ở cạnh hông, một số mặt của hộp không phải là hình chữ nhật, có thể tạo với mặt hộp chính một góc nhọn hoặc tù.
-
 - D- Các dạng hộp không phải hình hộp chữ nhật, không có các mối dán hông, dạng khay. Việc ghép nối các cạnh được hình thành bởi các kiểu gài khác nhau, hoặc dán ở góc
-
 - E- Đây là những dạng hộp dành để đóng gói một nhóm sản phẩm: như một lốc bia, một chục trứng...
-
 - F- Các dạng hộp có cấu trúc đặc biệt không nằm trong nhóm từ A-E
-
 * Các dạng hộp nhóm A còn được gọi là tube style. Các dạng hộp này đều được dán hông trên thiết bị gấp dán tự động theo sơ dồ hình 2.13, keo được bôi ở tai dán ở mặt in, sau đó hộp được gấp theo đường gấp thứ 2 và thứ 4 của hộp, hộp được ép và dán mí hông với nhau (hình 2.13, hình 2.20)
-
 Cách dán hông này ứng dụng để dán hông hộp cho các dạng hộp hình trụ khác có đáy là hình lục giác, bát giác.. (hình 2.14)
-
 Trong mỗi nhóm hộp, các dạng hộp được phân loại nhỏ hơn theo đặc điểm của các hình dạng nắp, hình dạng đáy hộp, kiểu gài nắp, kiểu cài đáy....tương ứng với các đặc điểm này là công năng tăng thêm, các phương án cấn bế, dán hộp và dựng hộp, đóng nắp hộp khi đóng gói bao bì.
-
 Hình 2.15 mô tả hộp A110 (theo phân loại của ECMA). Đây là dạng hộp cài nắp vô cùng thông dụng, được sử dụng khá rộng rãi để đóng gói hầu hết các dạng sản phẩm. Hộp có khả năng được dán hông tự động trên máy gấp dán hộp (hình 2.13), được dựng hộp, rót sản phẩm và đóng nắp trên các dây chuyển đóng gói tự động. Người ta có thể bổ sung thêm một số chi tiết để cải tiến hỗ trợ khả năng cài khóa hộp (hình 2.16, 2.18) hoặc hỗ trợ việc xé hộp (hình 2.17).
-
 Hình 2.19 mô tả hộp A220 (theo phân loại của ECMA). Đây là dạng hộp dán nắp vô cùng thông dụng, được sử dụng khá rộng rãi để đóng gói hầu hết các dạng sản phẩm. Hộp có khả năng được dán hông tự động trên máy gấp dán hộp (hình 2.20); hộp được dựng, rót sản phẩm và đóng nắp trên các dây chuyền đóng gói tự động hình 2.21
-
 Hình dạng của nắp cài này được cải tiến hoặc bổ sung thêm một số chi tiết để hộp vẫn giữ được khả năng đóng gói và dán nắp trên dây chuyền đóng gói tự động, như nguyên mẫu của nó, đồng thời bổ sung thêm khả năng cài nắp để đóng kín hộp trong quá trình sử dụng sau khi đã mở keo dán nắp hộp (hình2.22)
-
 Ngoài hai dạng nắp cài tiêu chuẩn (A110) và nắp dán tiêu chuẩn (A-220) cùng một số biến thể của nó như đã trình bày ở trên, còn có một số kiểu cài, khóa nắp và đáy khác.
-
 Hình 2.23 mô tả dạng đáy hộp cài khóa (mã đáy cài và khóa 04 -Snap lock base) và cách thức cài khóa đáy hộp.
-
 Hình 2.24 mô tả dạng đáy hộp dán khóa (mã đáy dán và khóa 05- Crashlock base). Dạng đáy này được dán trên thiết bị gấp dán hộp tự động cùng lúc với dán hông hộp theo sơ đồ hình 2.25. Sau đó hộp sẽ được dựng lên trong dây chuyền đóng gói. Lúc này đáy hộp đã dán trước sẽ được gài chặt tự động. Đây là một kiểu đáy hộp rất tiện lợi cho các dây chuyền đóng gói, vì đáy hộp được khóa chắc và khi đóng gói bớt được công đoạn cài đáy hộp (hình 2.26).
-
 Ngoài các kiểu nắp và đáy hộp thông dụng như đã trình bày trên các dạng hộp còn có các kiểu nắp và đáy hộp khác như các dạng nắp cài vặn xoắn tạo hình nắp để trang trí- hình 2.27; các dạng nắp được cài chặt khi chèn và khóa các tai vào nhau - hình 2.28; các dạng nắp cài kết hợp công năng làm vách ngăn trong lòng hộp hình 2.29; nắp cài kết hợp công năng làm quai xách - hình 2.30.
-
 * Các dạng hộp nhóm B còn được gọi là tray style, gồm các dạng hộp hình hộp chữ nhật không có các mối dán hông. Việc ghép nối các cạnh được hình thành bởi các kiểu gài khác nhau hoặc được dán ở các góc trên thiết bị gấp dán tự động.
-
 Dạng khay dán cơ bản là khay dán bốn góc (4 corner boxes - hình 2.31). Khay sau khi bế, sẽ được dán bốn góc trên thiết bị gấp dán hộp tự động (hình 2.32). Khay được giao hàng khi ở dạng xếp phẳng nên rất gọn và dễ vận chuyển, đồng thời, khi đóng gói khay được dựng nhanh chóng trên dây chuyền đóng gói không cần các công đoạn dán hay cài hộp (hình 2.33), vì vậy chúng được sử dụng rộng rãi. 
-
 Dạng khay dán cơ bản khác là khay dán sáu góc (6 corner boxes hình 2.34). Khác với khay dán bốn góc, khay dán sáu góc bao gồm phần đáy và nắp, hộp sau khi bế sẽ được dán sáu góc trên thiết bị gấp dán hộp tự động (hình 2.35). Hộp được giao hàng khi ở dạng xếp phẳng nên rất gọn và dễ vận chuyển; đồng thời, khi đóng gói, khay được dựng nhanh chóng trên dây chuyền đóng gói không cần các công đoạn dán hay cài hộp (hình 2.36), vì vậy chúng cũng được sử dụng rộng rãi.
-
 Dạng khay dán bốn góc có nắp (4 corner boxes with lid) cũng được dán như hộp dán bốn góc trên thiết bị gấp dán. Tuy nhiên khay có thêm nắp đóng (hình 2.37)
-
 Ba dạng khay trên có chung đặc điểm là các góc hộp được dán trên thiết bị gấp dán hộp trước khi giao cho nhà sản xuất để đóng gói. Tuy nhiên, để đảm bảo sau khi dán khay vẫn có thể xếp thành dạng phẳng, các khay trên bắt buộc phải có các đường cần xéo một góc 45 độ tại những góc cần dán. Chính đường gấp này làm mất tính thẩm mỹ của hộp khi trưng bày, vì vậy các nhà sản xuất thường sử dụng dạng khay bốn hoặc sáu góc (hình 2.38 và 2.39); hộp được bế và giao các mảnh bế cho nhà sản xuất hàng tiêu dùng; hộp không được dán trên thiết bị gấp dán hộp mà được dựng hộp, dán góc trên dây chuyền đóng gói (hình 2.40)
-
 Với các dạng khay, yêu cầu chịu lực lên thành khay là rất quan trọng nên, trong các trường hợp cần thiết, người ta sử dụng các dạng khay có thành khay đôi (hình 2.41; 2.42) hoặc thành khay có cấu trúc rỗng, tạo các thành khay có bề dày lớn (hình 2.43), với các cấu trúc cài chặt khác nhau, không sử dụng phương án dán các góc khay. Còn có rất nhiều dạng khay thuộc nhóm B với các kiểu cài khác nhau; có thể tham khảo thêm các dạng khay ở bảng 6.3 (chương 6)
-
 * Các dạng hộp nhóm C: cũng có dạng ống giống nhóm A, được dán nối ở cạnh hông, tuy nhiên một số mặt của hộp không phải là hình chữ nhật, có thể tạo với mặt hộp chính một góc nhọn hoặc tù.
-
 Thân hộp nhóm C có thể là hình lăng trụ đáy tam giác, ngũ giác, lục giác hoặc bát giác, cũng có thể là hình chóp cụt, hình chóp với đáy là hình tam giác, hình chữ nhật, hình ngũ giác, hình bát giác. Tương tự như các hộp nhóm A, nắp và đáy của các hộp nhóm C cũng bao gồm các dạng cơ bản như: các dạng nắp gài, dạng đáy hộp cài khóa, dán khóa, hoặc cài xoắn tạo hình hoa trang trí, hoặc kết hợp phần nắp với tai treo, kết hợp nắp với quai xách... Các nắp và đáy của hộp thuộc nhóm C sẽ thay đổi hình dạng thích hợp với hình dạng của thân hộp và kiểu cài nắp, đáy (hình 2.44).
-
 Với một số dạng hộp nhóm C, sau khi bế cũng có thể dán hông trên thiết bị gấp dán hộp tự động nếu hộp có dạng hình lăng trụ. Riêng các dạng hộp hình chóp và hình chóp cụt việc dán hông sẽ thực hiện thủ công.
-
 * Các dạng hộp nhóm D: cũng có dạng khay giống nhóm B, không có dán nối ở cạnh hông, tuy nhiên một số mặt của hộp không phải là hình chữ nhật như khay nhóm B. Các khay nhóm D có thể là hình lăng trụ đáy tam giác, ngũ giác, lục giác hoặc bát giác; cũng có thể là hình chóp cụt với đáy là hình tam giác, hình chữ nhật, hình ngũ giác, hình bát giác. Giống như các khay nhóm B, các khay nhóm D ghép nối các cạnh bởi các cách gài góc khác nhau, hoặc dán ở các góc. Các thành của khay nhóm D cũng giống khay nhóm B có dạng thành một lớp, thành hai lớp, thành có bề dày, hoặc có nắp đậy (hình 2.45).
 
-
 2.2.3 Thùng carton dợn sóng
-
 Thùng carton dợn sóng là dạng thùng giấy, với yêu cầu chịu lực cao, thường là dạng bao bì vận chuyển và được làm từ carton dợn sóng.
-
 Thùng carton dợn sóng là một dạng bao bì, vì vậy nó có tất cả các tính năng của một bao bì thông thường:
-
 - Chứa đựng sản phẩm
 - Bảo vệ sản phẩm
 - Quảng cáo
 - Trình bày các thông tin về sản phẩm
 - Hiệu quả trong sử dụng
 - Tiện lợi trong sử dụng
-
 Đối với bao bì carton dợn sóng - một dạng bao bì vận chuyển, chức năng quan trọng được quan tâm đầu tiên là khả năng chịu lực, chịu chất xếp cao. Đó cũng chính là yêu cầu thiết yếu mà khách hàng đòi hỏi các nhà cung cấp đáp ứng. Để đảm bảo tính chất chịu lực trong quá trình vận chuyển, yếu tố quan trọng cần xem xét là tấm carton dợn sóng; để đảm bảo việc đóng gói có hiệu quả. tấm carton có cấu trúc ổn định, phẳng, thích hợp.
-
 Tấm carton dợn sóng là vật liệu ghép các lớp giấy phẳng và lớp sóng ở giữa để tạo độ cứng. Có nhiều loại sóng khác nhau có độ cao và bước sóng khác nhau: như sóng A, B, C, E, F.... Các lớp phẳng và sóng kết hợp với nhau tạo thành carton 3, 5, 7 lớp.
-
 - Tấm carton 2 lớp: tấm carton gồm một lớp sóng và một giấy phẳng 2. 
 - Tấm carton 3 lớp: tấm carton bao gồm 1 lớp sóng và 2 lớp giấy phẳng
 - Tấm carton 5 lớp: tấm carton gồm 2 lớp sóng và 3 lớp giấy phẳng
 - Tấm carton 7: tấm carton gồm 3 lớp sóng và 4 lớp giấy phẳng
-
 Các mẫu thùng khá phong phú từ những dạng thùng cơ bản có hình hộp chữ nhật với nắp dán đơn giản, được định hình bằng cách cấn lằn và xẻ rãnh tấm carton dợn sóng, thuận tiện khi đóng gói trên dây chuyền tự động đến các kiểu hộp có hình thù đặc biệt với các nắp cài kết hợp với các dạng vách ngăn, từ các dạng thùng có dạng trụ ống đến các dạng hộp dạng khay nông. Để tạo thuận tiện cho việc lựa chọn kiểu dáng thùng carton dợn sóng, trong quá trình phát triển hệ thống bao bì cần tham khảo các bộ thư viện về kiểu dáng thùng carton dợn sóng.
-
 Một trong những bộ thư viện thông dụng nhất là thư viện kiểu dáng thùng carton dợn sóng FEFCO, thư viện này được phân loại thành bảy nhóm, bao gồm:
-
 - Nhóm có mã số 02: các dạng thùng thông dụng có cấu trúc thông thường. Nó được tạo ra từ một mành bế, không có thêm chi tiết nào nữa, được đóng kín nhờ nắp gài. Phần ghép bên hông được dán keo, đóng ghim, hoặc dán băng keo hai mặt.
 - Nhóm 03: có cấu trúc phức tạp hơn nhóm 02. Nó gồm hai mảnh ghép lại. Nắp là một mảnh, đáy là một mảnh.
 - Nhóm 04: một phần giống nhóm 02. Nó cũng được tạo từ một mảnh bế, nhưng phần hông hộp không dán keo, không đóng ghim hay dán bằng băng keo hai mặt. Nó được đóng kín bằng cách gấp, gài. Thùng nhóm này có thể có hai quai xách hay những phần bế làm quai xách.
@@ -577,55 +358,32 @@ Một trong những bộ thư viện thông dụng nhất là thư viện kiểu
 - Nhóm 06: dạng hộp cứng, phần nắp và đáy có chung một mảnh bể, ngoài ra các chi tiết phụ là hai mảnh bên hông và hai mảnh đó sẽ được ghép lại bằng keo hoặc đóng ghim.
 - Nhóm 07: dạng có một mảnh bế, đáy và hông có thể được dán keo 160 trên các thiết bị gấp dán nên dễ dàng dựng hộp từ khổ phẳng trên dây varchuyền đóng gói không cần dán đáy, rất tiện lợi cho việc đóng gói.
 - Nhóm 09: là dạng lót chèn trong hộp.
-
 Đa số thùng carton là dạng thùng đơn giản, thùng hình hộp chữ nhật có các tai dán ở đáy và nắp. Tấm carton dợn sóng sau khi in được cấn lần xẻ rãnh ngay trên máy in ở đơn vị cấn lần, xẻ rãnh lắp sau các đơn vị in, các thùng này được gọi là thùng cấn lần xẻ rãnh (RSC). Các rãnh được cắt sát phần nắp để tạo tai gấp khi đóng thùng (hình 2.53). Thùng dạng này thường có kích thước lớn, làm từ các tấm 5 lớp hoặc 7 lớp với các sóng trung bình và lớn, nhằm tạo cấu trúc vững chắc bảo vệ các sản phẩm có kích thước lớn ở bên trong như ti vi, tủ lạnh, máy giặt... Sau khi cấn lần xẻ rãnh, thùng được ghép mí bằng cách dán keo hoặc đóng ghim thép tại mối nối. Keo tạo cho mối nối được chắc chắn và có thể thực hiện với tốc độ cao. Đóng ghim thường không dùng trong bao bì thực phẩm hoặc trong các phân xưởng thực phẩm.
-
 Một dạng hộp carton dợn sóng khác là các dạng khay rất tiện lợi trong việc nâng và vận chuyển (hình 2.54). Dạng hộp khay chữ U giữ cho các hộp chồng lên nhau vững chắc, có thể dùng kết hợp khay và vỏ bọc màng co. Các dạng khay có nhiều kiểu dáng khác nhau với các khóa cài góc khác nhau. Giống như các dạng khay làm từ giấy bìa các dạng khay carton dợn sóng cũng có nhiều kiểu dáng khác nhau, nhiều kiểu cài khác nhau, thành hộp đơn hoặc đôi.
-
 Một số thiết kế đặc biệt là bao bì liên khối. Ví dụ bao bì sáu chai rượu (hình 2.55)
-
 Một chi tiết rất quan trọng của thùng carton dợn sóng là các vách ngăn hoặc chèn lót trong thùng.
-
 Với các sản phẩm to lớn, nặng và cồng kềnh, đặc biệt trong các ngành máy móc, hóa chất đòi hỏi bao bì carton dợn sóng phải được kết hợp với các vật liệu khác như bọt nhựa, hợp chất nhựa, gỗ dán hoặc gỗ xây dựng để tăng độ chắc chắn của bao bì ông
-
 Tấm carton dợn sóng sau khi in được định hình bằng cách cần lần xẻ rãnh trên máy in hoặc cấn bế hộp trên thiết bị cấn bế. Tẩm carton dợn sóng có thể được in trực tiếp lên tấm bằng phương pháp in flexo, in lụa hoặc in bằng phương pháp in offset tờ rời một tờ in trên giấy bìa, tờ in sau đó được bồi lên tâm carton dợn sóng.
 
-2.3.4 Túi giấy
-
+2.2.4 Túi giấy
 Do các quy định ngày càng nghiêm ngặt của việc bảo vệ môi trường, trong các cửa hàng, túi giấy là một giải pháp kinh tế thay thế túi nhựa. Sau đây là các dạng túi giây thường gặp
-
 - Flat bags (túi phẳng):
-
 Đây là dạng cơ bản nhất của túi giấy. Phần lớn những cái túi này được làm từ loại giấy gói hàng loại dày (kraft) màu nâu hoặc màu trắng. Dạng túi phẳng đáy không có bề dày và không có các nếp xếp hông.
-
 Túi loại này có ứng dụng hạn chế, hầu như chỉ sử dụng ở những điểm bán lẻ. Thích hợp để đựng rau quả, bánh mứt, bánh kẹo, bánh mì, thuốc uống và đồ sắt.
-
 - Satchel bags-túi có gấp góc:
-
 Dạng túi này được làm tương tự như túi phẳng (flat bag), nhưng được gấp ở hai bên hông thành các vạch gấp hông, không có bề dày đáy.
-
 Satchel bags thuận lợi hơn túi phẳng khi mở ra và dễ cầm hơn so với túi phẳng.
-
 Chúng được sử dụng ở những điểm bán lẻ cũng giống như túi phẳng. Vì túi satchel không đứng được nên có những hạn chế khi sử dụng trong các nhà máy đóng gói thực phẩm chế biến sẵn và những sản phẩm khác. Hầu hết những túi satchel được làm từ giấy kraft có thể được tráng phủ hoặc có thể thêm vào bên trong một lớp chất liệu bảo vệ khi cần, ví dụ với những sản phẩm nóng hoặc có dính mỡ: bánh mì, snack nóng...
-
-- Túi satchel tự mở (túi SOS):
-
+- Self - openning satchel bags (SOS bags):
 SOS bag là sản phẩm có đáy đứng và nếp gấp hông có thể có quai xách, không quai xách, dạng đóng hoặc mở 
 
 2.2.5 Nhãn hàng
-
 Nhãn hàng cũng là một thành tố của bao bì. Nhãn hàng thường được dán lên các chai lọ nhựa hoặc chai thủy tinh bằng keo dán trên dây chuyền dán nhãn, hoặc sử dụng nhãn tự dính là loại nhãn được in trên decal – một vật liệu có phủ sẵn keo ở mặt sau.
-
 Nhãn có thể in trên vật liệu giấy, nhựa, hoặc vật liệu decal
-
 Sau khi in, thường là in offset tờ rời, nhãn giấy có thể được cắt thành các xấp nhãn nếu nhãn có hình chữ nhật, hoặc được cắt và bế thụt theo từng xấp, nếu nhãn có hình dạng đặc biệt (hình 2.59). Nhăn giấy được giao hàng theo từng xấp và được dán bằng keo dán trên các dây chuyền dán nhãn từng nhãn một.
-
-Nhãn nhựa thường được in trên máy in flexo cuộn khổ nhỏ, hoặc in ống đồng. Cuộn sau khi in, sẽ được chia thành cuộn nhỏ, giao cho khách hàng. Cuộn sẽ được cắt thành từng nhân và dán vào chai trên dây chuyền đóng gói tự động bằng các loại keo tương thích với bề mặt cần dán, hoặc xử lý căng với nhãn sử dụng màng căng, hay xử lý co với nhân sử dụng màng co nod iol
-
+Nhãn nhựa thường được in trên máy in flexo cuộn khổ nhỏ, hoặc in ống đồng. Cuộn sau khi in, sẽ được chia thành cuộn nhỏ, giao cho khách hàng. Cuộn sẽ được cắt thành từng nhân và dán vào chai trên dây chuyền đóng gói tự động bằng các loại keo tương thích với bề mặt cần dán, hoặc xử lý căng với nhãn sử dụng màng căng, hay xử lý co với nhân sử dụng màng co
 Nhãn tự dính thường được in trên các thiết bị in flexo cuộn khổ nhỏ và bế nhãn ngay trên máy in ở đơn vị bế đặt sau các đơn vị in. Nhân chỉ được bế đứt lớp giấy bề mặt theo hình dạng nhăn, sau đó phần rìa sẽ được gỡ bỏ (hình 2.60). Phần nhãn trên cuộn đã bế và gỡ bỏ rìa sẽ được tách và dán vào chai trên dây chuyền đóng gói tự động.
-
 Ngoài ra, hiện nay còn có rất nhiều dạng nhãn đặc biệt được phát triển như:
-
 - Nhãn đa lớp (hình2.61): có khả năng tăng thêm phần diện tích in để cung cấp thông tin về sản phẩm
 - Nhãn dạng cuốn sách nhỏ (hình 2.62)
 - Nhãn thông minh có gắn RFID chứa các thông tin về sản phẩm, hỗ trợ chống giả và quản lý từng sản phẩm (hình 2.63).
