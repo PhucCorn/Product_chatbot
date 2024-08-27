@@ -1,0 +1,5 @@
+.env
+env/
+bot.session
+chroma_langchain_db/
+bin
