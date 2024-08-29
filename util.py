@@ -44,7 +44,7 @@ def is_relevance(img_caps, answer, message, relevant_docs):
     """
     )
     class Classification(BaseModel):
-        relevance: bool = Field(description="How relevance of caption for an image to an answer base on question, an answer, a document and a caption of image. The relevance is just True or False, where True means a caption for an image and a question, an answer are revelant, and False means not revelant")
+        relevance: bool = Field(description="How relevance of caption for an image to an answer base on question, an answer, a document and a caption of image. The relevance is just True or False, where True means a caption for an image and a question, an answer are relevant, and False means not relevant")
         relevance_score : float = Field(
             description="How relevance of the following image caption to a question and an answer. The relevance is a real number and is on a scale of 0 to 10, where 0 means completely irrelevant, and 10 means the caption perfectly complements and supports the answer."
         )
@@ -66,23 +66,3 @@ def img_caps_gen(docs):
                 img_caps += [img_cap]
     return img_caps
 
-# def tabel_gen(file_path):
-#     df_dict = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
-#     tables = []
-#     sheets_name = []
-#     for sheet_name, df in df_dict.items():
-#         # table = tabulate(df, headers='keys', tablefmt='grid', showindex=False)
-#         table = df.to_string(index=False)
-#         tables += [table]
-#         sheets_name += [sheet_name]
-#     return tables, sheets_name
-
-# def add_table(txt_file_path):
-#     xlsx_file_path = txt_file_path[:-4]+".xlsx"
-#     tables, sheets_name = tabel_gen(xlsx_file_path)
-#     with open(txt_file_path, 'r', encoding='utf-8') as file:
-#         content = file.read()
-#     for i, sheet_name in enumerate(sheets_name):
-#         updated_content = content.replace("--xlsx."+sheet_name+"--", tables[i])
-#     with open(txt_file_path, 'w', encoding='utf-8') as file:
-#         file.write(updated_content)

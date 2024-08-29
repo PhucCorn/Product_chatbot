@@ -1,18 +1,18 @@
 Bao bì hộp làm từ giấy bìa%Hình 1.1: Hộp đựng sữa làm từ vật liệu ghép màng-giấy và thiết bị định hình, chiết rót, hàn kín bao bì
-Bao bì hộp làm từ giấy bìa%Hình 1.2. Bao bì hộp làm từ giấy với các kiểu dáng khác nhau và thiết kế đồ họa phong phú
-+ Thùng carton dợn sóng%Hình 1.3. Quy trình sản xuất bao bì từ giấy bìa
-Sản xuất thùng carton%Hình 1.4. Sản xuất tấm carton dợn sóng
-Sản xuất thùng carton%Hình 1.5. Các dạng thùng carton dợn sóng khi ở khổ trải và sau khi đã dựng thùng
-+ Túi giấy%Hình 1.6. Các dạng túi giấy
-Bao bì mềm (bao bì làm từ màng nhựa)%Hình 1.7. Bao bì mềm
-- Bao bì thủy tinh%Hình 1.8. Bao bì thủy tinh
-- Bao bì kim loại%Hình 1.9. Bao bì kim loại
-việc phân cấp bao%Hình 1.10. Mối liên hệ và tính thống nhất giữa ba cấp bao bì - chai thủy tinh với nhãn dán (bao bì cấp 1)-Một lô ba chai trong bao bì cấp 2 - Thùng carton dợn sóng bao bì cấp 3
+Bao bì hộp làm từ giấy bìa%Hình 1.2: Bao bì hộp làm từ giấy với các kiểu dáng khác nhau và thiết kế đồ họa phong phú
++ Thùng carton dợn sóng%Hình 1.3: Quy trình sản xuất bao bì từ giấy bìa
+Sản xuất thùng carton%Hình 1.4: Sản xuất tấm carton dợn sóng
+Sản xuất thùng carton%Hình 1.5: Các dạng thùng carton dợn sóng khi ở khổ trải và sau khi đã dựng thùng
++ Túi giấy%Hình 1.6: Các dạng túi giấy
+Bao bì mềm (bao bì làm từ màng nhựa)%Hình 1.7: Bao bì mềm
+- Bao bì thủy tinh%Hình 1.8: Bao bì thủy tinh
+- Bao bì kim loại%Hình 1.9: Bao bì kim loại
+việc phân cấp bao%Hình 1.10: Mối liên hệ và tính thống nhất giữa ba cấp bao bì - chai thủy tinh với nhãn dán (bao bì cấp 1)-Một lô ba chai trong bao bì cấp 2 - Thùng carton dợn sóng bao bì cấp 3
 hình 2.1;%Hình 2.1: Túi hàn dán 4 biên
 hình 2.1;%Hình 2.2: Túi hàn dân 3 biên
 hình 2.1;%Hình 2.3: Túi hàn lưng dán chân đầu
 (hình 2.4)%Hình 2.4: Túi hàn lưng dán chân đầu có xếp hông
-(hình 2.5)%Hình 2.5; Túi đứng và mặt cắt nhìn từ 3 hướng
+(hình 2.5)%Hình 2.5: Túi đứng và mặt cắt nhìn từ 3 hướng
 (hình 2.6)%Hình 2.6: Túi zipper
 A- Các dạng hộp hình hộp chữ nhật%Hình 2.7: Các dạng hộp gấp nhóm A- đây là các dạng hộp hình hộp chữ nhật dán mối nối hông
 B- Các dạng hộp hình hộp chữ nhật%Hình 2.8: Các dạng hộp gấp nhóm B- đây là những dạng khay hình chữ nhật

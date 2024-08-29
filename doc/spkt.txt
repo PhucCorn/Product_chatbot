@@ -272,7 +272,7 @@ Dựa trên các thông tin trên để xác định các yêu cầu cơ bản c
 2.1.3.5 Dây chuyên đóng gói
 - Các thông tin cần thu thập: "Tự động hay thủ công, phương pháp đóng gói, thiết bị đóng gói, tốc độ đóng gói". Yêu cầu cần xác định tương ứng: "Lựa chọn kiểu dáng bao bì"
 
-2.1.3.14 Yếu tố lưu trữ và phân phối
+2.1.3.6 Yếu tố lưu trữ và phân phối
 - Các thông tin cần thu thập: "Điều kiện lưu trữ, phân phối: nhiệt độ, độ ẩm, áp suất, ánh sáng". Yêu cầu cần xác định tương ứng: "Khả năng chịu nhiệt, cản sáng, cản ẩm, cản khí của vật liệu"
 - Các thông tin cần thu thập: "Phương pháp tiệt trùng, tiếp xúc với hóa chất". Yêu cầu cần xác định tương ứng: "Chịu nhiệt nếu tiệt trùng bằng đun sôi"
 - Các thông tin cần thu thập: "Tiếp xúc với nguồn sóng radio, sóng điện từ...". Yêu cầu cần xác định tương ứng: "Vật liệu bền với nguồn radio, sóng điện từ..."
