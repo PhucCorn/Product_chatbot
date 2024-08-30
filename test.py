@@ -35,13 +35,17 @@ patterns = [
 loaders = TextLoader("doc/"+"spkt.txt", encoding = 'UTF-8')
 docs = [loaders.load()]
 splitter = PatternSplitter(patterns)
-chunks = splitter.split_documents(docs[0])
+split_docs = splitter.split_documents(docs[0])
 # In các đoạn
-for chunk in chunks:
-    print("Chunk:")
-    print(chunk.metadata)
-    print(chunk.page_content[:100])
-    print("----------")
+def beautiful_print(split_docs):
+    for split_doc in split_docs:
+        print("Chunk:")
+        print(" ".join([split_doc.metadata['chapter'],split_doc.metadata['section'],split_doc.metadata['subsection'],split_doc.metadata['subsubsection'],]))
+        print("----------")
+        beautiful_print(split_doc.metadata["subtree"])
+
+         
+beautiful_print(split_docs)
 
 # from langchain_community.document_loaders import TextLoader
 # from langchain_text_splitters import RecursiveCharacterTextSplitter

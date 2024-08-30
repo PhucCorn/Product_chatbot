@@ -1,6 +1,7 @@
 import re
 from langchain_core.documents import Document
 from langchain_community.document_loaders import TextLoader
+from util import *
 
 class PatternSplitter:
     def __init__(self, patterns):
@@ -41,19 +42,29 @@ class PatternSplitter:
     #     return chunks
     
     def split_documents(self, docs):
+        chain = summary_chain()
+        def pop_stack(rank, stack):
+            while rank <= stack[-1].metadata['rank']:
+                pop = stack.pop()
+                if pop.metadata['summary'] == '': 
+                    content = content_finder(pop)
+                    pop.metadata['summary'] = chain.invoke(Document(page_content="\n".join([content[0], pop.page_content] + content[1:]), metadata={}))
+                stack[-1].metadata['subtree'] += [pop]
+            return stack
+        split_docs = []
         for doc in docs:
-            chunks = []
             text = doc.page_content
             chapter_matches = [i.group() for i in list(re.finditer(self.patterns[0], text))]
             section_matches = [i.group() for i in list(re.finditer(self.patterns[1], text))]
             subsection_matches = [i.group() for i in list(re.finditer(self.patterns[2], text))]
+            subsubsection_matches = [i.group() for i in list(re.finditer(self.patterns[3], text))]
             combined_pattern = "|".join(self.patterns)
             matches = list(re.finditer(combined_pattern, text))
             chapter = ''
             section = ''
             subsection = ''
             subsubsection = ''
-            tree = []
+            stack = [Document(page_content='' ,metadata={'summary':'', 'rank':0, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
             for i in range(len(matches)):
                 start_idx = matches[i].start()+len(matches[i].group())
                 end_idx = matches[i + 1].start() if i + 1 < len(matches) else len(text)
@@ -63,16 +74,37 @@ class PatternSplitter:
                     section = ''
                     subsection = ''
                     subsubsection = ''
-                    tree += [{'summary':content, 'subtree':[]}]
+                    rank = 1
+                    stack = pop_stack(rank, stack)
+                    stack += [Document(page_content='' ,metadata={'summary':"\n".join([chapter, content]), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 elif matches[i].group() in section_matches:
                     section = matches[i].group()
                     subsection = ''
                     subsubsection = ''
-                    tree[-1][]
+                    rank = 2
+                    stack = pop_stack(rank, stack)
+                    # if content == '':
+                    if matches[i].group()[:3]+'.1' in [x[:5] for x in subsection_matches]:
+                        stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                    else:
+                        summary_content = "\n".join([chapter[3:], section, content])
+                        stack[-1].metadata['subtree'] += [Document(page_content=content ,metadata={'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 elif matches[i].group() in subsection_matches:
                     subsection = matches[i].group()
                     subsubsection = ''
+                    rank = 3
+                    stack = pop_stack(rank, stack)
+                    # if content == '':
+                    if matches[i].group()[:5]+'.1' in [x[:7] for x in subsubsection_matches]:
+                        stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                    else:
+                        summary_content = "\n".join([chapter[3:], section[5:], subsection, content])
+                        stack[-1].metadata['subtree'] += [Document(page_content=content ,metadata={'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 else:
                     subsubsection = matches[i].group()
-                chunks.append(Document(page_content=chunk, metadata={'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection}))
-        return chunks
+                    rank = 4
+                    summary_content = "\n".join([chapter[3:], section[5:], subsection[7:], subsubsection, content])
+                    stack[-1].metadata['subtree'] += [Document(page_content=content ,metadata={'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+            stack = pop_stack(1, stack)
+            split_docs += [stack[0]]       
+        return split_docs

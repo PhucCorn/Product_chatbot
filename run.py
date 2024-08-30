@@ -76,7 +76,6 @@ async def handle_new_message(event, stream=False):
                 break
     if answer != "Tôi không được cung cấp thông tin để trả lời câu hỏi này":
         relevances = is_relevance(img_caps, answer, message, relevant_docs)
-        print(relevances)
         for i, img_cap in enumerate(img_caps):
             if bool(relevances[i].dict()["relevance"]):
                 file_path = "img/"+img_cap.split(":")[0].split(' ')[1]+"-spkt.png"

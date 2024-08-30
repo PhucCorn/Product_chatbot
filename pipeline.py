@@ -148,12 +148,7 @@ class AIAssistant:
             id_key=id_key,
         )
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150,  separators=["\n\n"])
-        chain = (
-            {"doc": lambda x: x.page_content}
-            | ChatPromptTemplate.from_template("Summarize the following document:\n\n{doc}")
-            | self.model
-            | StrOutputParser()
-        )
+        chain = summary_chain()
         file_names = os.listdir('doc')
         for file_name in file_names:
             with open("img_cap/"+file_name[:-4]+"_cap.txt", 'r', encoding='utf-8') as f:

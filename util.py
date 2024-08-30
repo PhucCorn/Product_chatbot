@@ -3,6 +3,7 @@ from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
 # import pandas as pd
 # from tabulate import tabulate
 
@@ -65,4 +66,40 @@ def img_caps_gen(docs):
             if img_cap not in img_caps:
                 img_caps += [img_cap]
     return img_caps
+
+def summary_chain():
+    chain = (
+        {"doc": lambda x: x.page_content}
+        | ChatPromptTemplate.from_template("""
+        You are an AI assistant tasked with summarizing a document to enhance its relevance for query-based retrieval. Please create a summary that:
+        Focuses on the most relevant information that would likely be sought in a query.
+        Prioritizes key terms, topics, and concepts that are central to understanding the document's content.
+        Excludes any superfluous details, repetitive information, or sections not essential to common queries.
+        Maintains the context necessary for accurate and useful responses during future searches.
+        Document to summarize:  \n\n{doc}
+        """)
+        | ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
+        | StrOutputParser()
+    )
+    return chain
+
+def content_finder(node):
+    if node.metadata["subtree"] == []:
+        if node.metadata["rank"] == 2:
+            result = " ".join([node.metadata["section"], node.page_content])
+        elif node.metadata["rank"] == 3:
+            result = " ".join([node.metadata["subsection"], node.page_content])
+        elif node.metadata["rank"] == 4:
+            result = " ".join([node.metadata["subsubsection"], node.page_content])
+        return [result]
+    else:
+        if node.metadata["rank"] == 1:
+            contents = [node.metadata["chapter"]]
+        elif node.metadata["rank"] == 2:
+            contents = [node.metadata["section"]]
+        elif node.metadata["rank"] == 3:
+            contents = [node.metadata["subsection"]]
+        for sub_node in node.metadata["subtree"]:
+            contents += content_finder(sub_node)
+        return contents
 
