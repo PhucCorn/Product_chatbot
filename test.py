@@ -2,6 +2,7 @@ import re
 from langchain_core.documents import Document
 from langchain_community.document_loaders import TextLoader
 from splitter import *
+from retriever import *
 
 # Văn bản mẫu
 document_text = """Chương 1: TỔNG QUAN VỀ BAO BÌ
@@ -46,6 +47,9 @@ def beautiful_print(split_docs):
 
          
 beautiful_print(split_docs)
+
+retriever = TreeRetriever(split_docs)
+retriever.invoke("ĐẶC ĐIỂM CÁC DẠNG BAO BÌ, QUY TRÌNH SẢN XUẤT VÀ PHẠM VI ỨNG DỤNG - CƠ SỞ ĐỀ XUẤT PHƯƠNG ÁN BAO GÓI của bao bì mềm")
 
 # from langchain_community.document_loaders import TextLoader
 # from langchain_text_splitters import RecursiveCharacterTextSplitter
