@@ -91,14 +91,11 @@ class PatternSplitter:
                     stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'full_content': full_content, 'summary': len(summaries_queue)-1, 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
             stack = pop_stack(1, stack, summaries_queue)
             split_docs += [stack[0]]
-            print("before sum")
             while True:
                 try:
                     summaries = chain.batch(summaries_queue, config={"max_concurrency": 5})
                     break
                 except:
                     print("Limit Token: Hệ thống sẽ chạy lại")
-            print("after sum")
             split_docs = add_summaries(split_docs, summaries)
-            print("end")
         return split_docs

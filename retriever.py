@@ -27,5 +27,5 @@ class TreeRetriever(BaseRetriever):
         else:
             result = self.documents[rank[0].metadata['idx']].copy()
             result.page_content = result.metadata['full_content']
-            return result
+            return [result]
             

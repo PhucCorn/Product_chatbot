@@ -19,18 +19,21 @@ from langchain.chains.query_constructor.base import AttributeInfo
 from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.retrievers.document_compressors import LLMChainFilter
 from langchain.retrievers import ContextualCompressionRetriever
+from langchain.retrievers import EnsembleRetriever
 from operator import itemgetter
 import uuid
 import shutil
 from util import *
 import os
+from retriever import *
+from splitter import *
 
 class AIAssistant:
     def __init__(self):
         self.model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
         self.embedding = OpenAIEmbeddings(model="text-embedding-3-large")
         self.parser = StrOutputParser()
-        self.retriever = self.multivector_summary_retriever()
+        self.retriever = self.tree_retriever()
         
     def llm_memory(self):
         trimmer = trim_messages(
@@ -67,24 +70,49 @@ class AIAssistant:
         )
         return prompt
     
-    def selfquerying_retriever(self):
-        docs = bbas_docs()
-        vectorstore = Chroma.from_documents(docs, self.embedding)
-        metadata_field_info = [
-            AttributeInfo(
-                name="topic",
-                description="Topic of user's query",
-                type="string",
-            ),
-        ]
-        document_content_description = "Content of each topic"
-        retriever = SelfQueryRetriever.from_llm(
-            self.model,
-            vectorstore,
-            document_content_description,
-            metadata_field_info,
-            enable_limit=True,
+    def ensemble_retriever(self):
+        tree_retriever = self.tree_retriever()
+        summarize_retriever = self.multivector_summary_retriever()
+        ensemble_retriever = EnsembleRetriever(
+            retrievers=[tree_retriever, summarize_retriever], weights=[0.7, 0.3]
         )
+        return ensemble_retriever
+    
+    def tree_retriever(self):
+        def treeTraversal(branches, caps):
+            for branch in branches:
+                if branch.metadata['subtree'] == []:
+                    branch.metadata['img_cap'] = []
+                    for cap in caps:
+                        link, img_cap = cap.split("%")
+                        if link in branch.page_content:
+                            branch.metadata['img_cap'] += [img_cap]
+                else:
+                    branch.metadata['subtree'] = treeTraversal(branch.metadata['subtree'], caps)
+            return branches
+        patterns = [
+            r'(?<=\n)Chương \d+: .+',  # Mục lớn như "Chương 1: TỔNG QUAN VỀ BAO BÌ"
+            r'(?<=\n)\d+\.\d+ .+',  # Mục nhỏ hơn như "1.1 ĐẶC ĐIỂM CHUNG"
+            r'(?<=\n)\d+\.\d+\.\d+ .+',  # Mục nhỏ hơn nữa như "1.1.1 Đặc điểm chung của bao bì"
+            r'(?<=\n)\d+\.\d+\.\d+\.\d+ .+'  # Mục nhỏ hơn nữa như "1.1.2.1 Tính năng chứa đựng sản phẩm"
+        ]
+        file_names = os.listdir('doc')
+        for file_name in file_names:
+            with open("img_cap/"+file_name[:-4]+"_cap.txt", 'r', encoding='utf-8') as f:
+                caps = f.readlines()
+            loaders = [
+                TextLoader("doc/"+file_name, encoding = 'UTF-8'),
+            ]
+            docs = []
+            for loader in loaders:
+                docs+=[loader.load()]
+            splitter = PatternSplitter(patterns)
+            print("before split")
+            split_docs = splitter.split_documents(docs[0])
+            print("after split")
+            split_docs = treeTraversal(split_docs, caps)
+            print("after go through")
+            retriever = TreeRetriever(documents=split_docs)
         return retriever
     
     def multivector_subchunk_retriever(self):
@@ -178,13 +206,15 @@ class AIAssistant:
         
     
     def docs_gen(self, question):
+        en_question = vn_2_en(question)
         try:
             _filter = LLMChainFilter.from_llm(self.model)
             compression_retriever = ContextualCompressionRetriever(
                 base_compressor=_filter, base_retriever=self.retriever
             )
-            docs = compression_retriever.invoke(question)
+            docs = compression_retriever.invoke(en_question)
         except Exception as e:
+            print(e)
             docs = [Document(page_content="Không có tài liệu liên quan đến câu hỏi này.", metadata={})]
         return docs
 
@@ -204,7 +234,10 @@ class AIAssistant:
             input_messages_key="question", #Which key is user's input
         )
         docs = self.docs_gen(question)
-        img_caps = img_caps_gen(docs)
+        if docs[0].page_content != 'Không có tài liệu liên quan đến câu hỏi này.':
+            img_caps = img_caps_gen(docs)
+        else:
+            img_caps = []
         docs = "\n\n".join(doc.page_content for doc in docs)
         print(docs)
         print("/////////////////////////////////////////////")

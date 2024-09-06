@@ -46,13 +46,9 @@ def is_relevance(img_caps, answer, message, relevant_docs):
     )
     class Classification(BaseModel):
         relevance: bool = Field(description="How relevance of caption for an image to an answer base on question, an answer, a document and a caption of image. The relevance is just True or False, where True means a caption for an image and a question, an answer are relevant, and False means not relevant")
-        relevance_score : float = Field(
-            description="How relevance of the following image caption to a question and an answer. The relevance is a real number and is on a scale of 0 to 10, where 0 means completely irrelevant, and 10 means the caption perfectly complements and supports the answer."
-        )
-        explanation : str = Field(description="a brief explanation for your relevance score")
     llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
         Classification
-    )   
+    )
     tagging_chain = tagging_prompt | llm
     for img_cap in img_caps:
         batch += [{"question": message, "answer": answer, "img_cap": img_cap, "relevant_docs": relevant_docs}]
