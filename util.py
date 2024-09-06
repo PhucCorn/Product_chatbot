@@ -82,7 +82,7 @@ def summary_chain():
 
         {doc}
         """)
-        | ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0)
+        | ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
         | StrOutputParser()
     )
     return chain

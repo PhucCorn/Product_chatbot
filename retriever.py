@@ -17,7 +17,7 @@ class TreeRetriever(BaseRetriever):
         summaries = []
         for idx, doc in enumerate(self.documents):
             summaries += [Document(page_content=doc.metadata['summary'], metadata={"idx":idx})]
-        llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
+        llm = ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0)
         compressor = LLMListwiseRerank.from_llm(llm, top_n=1)
         rank = compressor.compress_documents(summaries, query)
         rank_1 = self.documents[rank[0].metadata['idx']]
@@ -25,8 +25,7 @@ class TreeRetriever(BaseRetriever):
             retriever = TreeRetriever(documents=rank_1.metadata['subtree'])
             return retriever.invoke(query)
         else:
-            result = self.documents[rank[0].metadata['idx']]
+            result = self.documents[rank[0].metadata['idx']].copy()
             result.page_content = result.metadata['full_content']
-            del result.metadata['full_content']
-            return self.documents[rank[0].metadata['idx']]
+            return result
             
