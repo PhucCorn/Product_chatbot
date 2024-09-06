@@ -76,7 +76,8 @@ class PatternSplitter:
                     subsubsection = ''
                     rank = 1
                     stack = pop_stack(rank, stack)
-                    stack += [Document(page_content='' ,metadata={'summary':"\n".join([chapter, content]), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                    stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                    # stack += [Document(page_content='' ,metadata={'summary':vn_2_en("\n".join([chapter, content])), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 elif matches[i].group() in section_matches:
                     section = matches[i].group()
                     subsection = ''
@@ -87,8 +88,9 @@ class PatternSplitter:
                     if matches[i].group()[:3]+'.1' in [x[:5] for x in subsection_matches]:
                         stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                     else:
-                        summary_content = "\n".join([chapter[3:], section, content])
-                        stack[-1].metadata['subtree'] += [Document(page_content=content ,metadata={'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                        summary_content = "\n".join([chapter[10:], section, content])
+                        full_content = ": ".join([section[4:],content])
+                        stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'full_content': full_content, 'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 elif matches[i].group() in subsection_matches:
                     subsection = matches[i].group()
                     subsubsection = ''
@@ -98,13 +100,15 @@ class PatternSplitter:
                     if matches[i].group()[:5]+'.1' in [x[:7] for x in subsubsection_matches]:
                         stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                     else:
-                        summary_content = "\n".join([chapter[3:], section[5:], subsection, content])
-                        stack[-1].metadata['subtree'] += [Document(page_content=content ,metadata={'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                        summary_content = "\n".join([chapter[10:], section[4:], subsection, content])
+                        full_content = ": ".join([subsection[6:],content])
+                        stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'full_content': full_content, 'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 else:
                     subsubsection = matches[i].group()
                     rank = 4
-                    summary_content = "\n".join([chapter[3:], section[5:], subsection[7:], subsubsection, content])
-                    stack[-1].metadata['subtree'] += [Document(page_content=content ,metadata={'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                    summary_content = "\n".join([chapter[10:], section[4:], subsection[6:], subsubsection, content])
+                    full_content = ": ".join([subsubsection[8:],content])
+                    stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'full_content': full_content, 'summary': chain.invoke(Document(page_content=summary_content, metadata={})), 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
             stack = pop_stack(1, stack)
             split_docs += [stack[0]]       
         return split_docs

@@ -6,7 +6,7 @@ from langchain_core.retrievers import BaseRetriever
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
-from langchain.retrievers.document_compressors import FlashrankRerank
+from langchain.retrievers.document_compressors import LLMListwiseRerank
 
 class TreeRetriever(BaseRetriever):
     documents: List[Document]
@@ -14,15 +14,19 @@ class TreeRetriever(BaseRetriever):
     def _get_relevant_documents(
         self, query: str, *, run_manager: CallbackManagerForRetrieverRun
     ) -> List[Document]:
-        matching_documents = []
         summaries = []
-        exist_sub = False
-        for doc in self.documents:
-            if doc.metadata['subtree'] != []:
-                exist_sub = True
-            summaries += [Document(page_content=doc.metadata['summary'])]
-        FlashrankRerank.update_forward_refs()
-        compressor = FlashrankRerank()
+        for idx, doc in enumerate(self.documents):
+            summaries += [Document(page_content=doc.metadata['summary'], metadata={"idx":idx})]
+        llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
+        compressor = LLMListwiseRerank.from_llm(llm, top_n=1)
         rank = compressor.compress_documents(summaries, query)
-        print(rank)
+        rank_1 = self.documents[rank[0].metadata['idx']]
+        if rank_1.metadata['subtree'] != []:
+            retriever = TreeRetriever(documents=rank_1.metadata['subtree'])
+            return retriever.invoke(query)
+        else:
+            result = self.documents[rank[0].metadata['idx']]
+            result.page_content = result.metadata['full_content']
+            del result.metadata['full_content']
+            return self.documents[rank[0].metadata['idx']]
             

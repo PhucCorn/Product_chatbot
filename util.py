@@ -71,14 +71,18 @@ def summary_chain():
     chain = (
         {"doc": lambda x: x.page_content}
         | ChatPromptTemplate.from_template("""
-        You are an AI assistant tasked with summarizing a document to enhance its relevance for query-based retrieval. Please create a summary that:
-        Focuses on the most relevant information that would likely be sought in a query.
-        Prioritizes key terms, topics, and concepts that are central to understanding the document's content.
-        Excludes any superfluous details, repetitive information, or sections not essential to common queries.
-        Maintains the context necessary for accurate and useful responses during future searches.
-        Document to summarize:  \n\n{doc}
+        You are an AI assistant tasked with summarizing a document to enhance its relevance for query-based retrieval. Please create a summary in English that:
+        - Focuses on the most relevant information that would likely be sought in a query.
+        - Prioritizes key terms, topics, and concepts that are central to understanding the document's content.
+        - Excludes any superfluous details, repetitive information, or sections not essential to common queries.
+        - Maintains the original document's section headings and numbering (e.g., "2.1.3.1 Characteristics of the product") to ensure that the summary reflects the structure and context of the original document.
+        - Provides context necessary for accurate and useful responses during future searches.
+        In language: English
+        Document to summarize:  
+
+        {doc}
         """)
-        | ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
+        | ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0)
         | StrOutputParser()
     )
     return chain
@@ -102,4 +106,18 @@ def content_finder(node):
         for sub_node in node.metadata["subtree"]:
             contents += content_finder(sub_node)
         return contents
+    
+def vn_2_en(text):
+    llm = ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0)
+    template = """
+    Translate the following Vietnamese phrases to English:
+
+    {phrases}
+
+    Only translate the phrases and retain any specific names like 'Bao Bì Ánh Sáng' or 'BBAS'.
+    """
+    prompt = ChatPromptTemplate.from_template(template)
+    chain = prompt | llm
+    result = chain.invoke({"phrases": text})
+    return result.content
 
