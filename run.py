@@ -55,7 +55,7 @@ async def handle_new_message(event, stream=False):
     print(f'Nhận tin nhắn từ {session_id}: {message}')
     if not stream: #If stream == True, the code under 'the if' will be crashed.
         initial_message = await event.respond("Đang sinh câu trả lời...")
-        answer, img_caps, relevant_docs = text_gen.invoke(message, session_id)
+        answer, img_caps, img_paths, relevant_docs = text_gen.invoke(message, session_id)
         await client.edit_message(event.chat_id, initial_message, answer)
     else:
         initial_message = await event.respond("Đang sinh câu trả lời...")
@@ -75,11 +75,15 @@ async def handle_new_message(event, stream=False):
                 await event.respond('Đã xảy ra lỗi trong quá trình sinh câu trả lời')
                 break
     if answer != "Tôi không được cung cấp thông tin để trả lời câu hỏi này":
-        relevances = is_relevance(img_caps, answer, message, relevant_docs)
-        for i, img_cap in enumerate(img_caps):
-            if bool(relevances[i].dict()["relevance"]):
-                file_path = "img/"+img_cap.split(":")[0].split(' ')[1]+"-spkt.png"
-                await client.send_file(event.chat_id, file_path, caption=img_cap)
+        if img_paths == []:
+            relevances = is_relevance(img_caps, answer, message, relevant_docs)
+            for i, img_cap in enumerate(img_caps):
+                if bool(relevances[i].dict()["relevance"]):
+                    file_path = "img/spkt/"+img_cap.split(":")[0].split(' ')[1]+"-spkt.png"
+                    await client.send_file(event.chat_id, file_path, caption=img_cap)
+        else:
+            for idx, img_path in enumerate(img_paths):
+                await client.send_file(event.chat_id, img_path, caption=img_caps[idx])
     #Update log and database
     update_conversations(session_id, "", time)
     

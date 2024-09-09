@@ -20,7 +20,13 @@ from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.retrievers.document_compressors import LLMChainFilter
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers import EnsembleRetriever
+from langchain.chains import create_sql_query_chain
+from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain_core.runnables import RunnableLambda
+from langchain_core.prompts import PromptTemplate
+from langchain_core.pydantic_v1 import BaseModel, Field
 from operator import itemgetter
+from sqlalchemy.exc import ProgrammingError
 import uuid
 import shutil
 from util import *
@@ -51,14 +57,14 @@ class AIAssistant:
         result = conversations_collection.find_one(query)
         return trimmer
     
-    def prompt_gen(self):
+    def docs_prompt_gen(self):
         prompt = ChatPromptTemplate.from_messages(
             [
                 (
                     "system",
                     """
                     Bạn là AI Chatbot của Công ty CP TM & SX Bao Bì Ánh Sáng hay BBAS. 
-                    Bạn ở đây để trả lời tất cả các câu hỏi về văn hóa doanh nghiệp với các tài liệu bạn được cung cấp. 
+                    Bạn ở đây để trả lời tất cả các câu hỏi về các sản phẩm của doanh nghiệp với các tài liệu bạn được cung cấp. 
                     Tài liệu được cung cấp: {doc} 
                     Nếu tài liệu được cung cấp là "Không có tài liệu liên quan đến câu hỏi hoặc yêu cầu này." hoặc các tài liệu được cung cấp không liên quan đến câu hỏi hoặc yêu cầu thì trả lời là \"Tôi không được cung cấp thông tin để trả lời câu hỏi này\"
                     Lưu ý: CÁC CHỈ TRẢ LỜI CÁC CÂU HỎI HOẶC YÊU CẦU ĐƯỢC HỎI, KHÔNG THỪA, KHÔNG THIẾU VÀ KHÔNG TỰ Ý TÓM TẮT HAY RÚT NGẮN CÂU TRẢ LỜI
@@ -67,6 +73,22 @@ class AIAssistant:
                 ),
                 MessagesPlaceholder(variable_name="question"), #phần "question" bên dưới sẽ được chèn vào đây
             ]
+        )
+        return prompt
+    
+    def sql_prompt_gen(self):
+        prompt = PromptTemplate.from_template(
+                    """
+                    Bạn là AI Chatbot của Công ty CP TM & SX Bao Bì Ánh Sáng hay BBAS. 
+                    Bạn ở đây để trả lời tất cả các câu hỏi về các sản phẩm của doanh nghiệp với các thông tin bạn được cung cấp. 
+                    Bạn sẽ được cung cấp câu hỏi của người dùng, SQL query tương ứng, và kết quả truy xuất SQL, trả lời câu hỏi của người dùng.
+                    Câu hỏi: {question}
+                    SQL Query: {query}
+                    Kết quả SQL: {result}
+                    Nếu không có thông tin để trả lời, câu hỏi không liên quan hoặc SQL Query bị lỗi thì trả lời là \"Không có dữ liệu để truy vấn\"
+                    Nhớ ghi lại các chú thích ảnh trong câu trả lời.
+                    Câu trả lời: 
+                    """
         )
         return prompt
     
@@ -202,8 +224,7 @@ class AIAssistant:
                         doc.metadata['img_cap'] += [img_cap]
             retriever.vectorstore.add_documents(summary_docs)
             retriever.docstore.mset(list(zip(doc_ids, docs)))
-        return retriever
-        
+        return retriever    
     
     def docs_gen(self, question):
         en_question = vn_2_en(question)
@@ -213,19 +234,62 @@ class AIAssistant:
                 base_compressor=_filter, base_retriever=self.retriever
             )
             docs = compression_retriever.invoke(en_question)
+            if docs == []: docs = [Document(page_content="Không có tài liệu liên quan đến câu hỏi này.", metadata={})]
         except Exception as e:
             print(e)
             docs = [Document(page_content="Không có tài liệu liên quan đến câu hỏi này.", metadata={})]
         return docs
+    
+    def query_gen(self, question):
+        db = connect_database()
+        def sql_gen(question):
+            for i in range(5):
+                write_query = create_sql_query_chain(self.model, db)
+                sql_code = write_query.invoke(question)
+                if ": " in sql_code:
+                    sql_code = sql_code.strip().split(": ")[1]
+                if "```sql" in sql_code:
+                    sql_code = sql_code.strip()[7:-4]
+                if 'SQLQuery' in sql_code:
+                    return sql_code
+                try:
+                    db.run(sql_code)
+                    break
+                except ProgrammingError as e:
+                    print("Code gen: \n")
+                    print(sql_code)
+                    print("\nCode SQL gen bị sai, đang tiến hành gen lại")
+                except Exception as e:
+                    print(e)
+                    break
+            return sql_code
+        write_query  = RunnableLambda(sql_gen)
+        execute_query = QuerySQLDataBaseTool(db=db)
+        chain = (
+            RunnablePassthrough.assign(query=write_query).assign(
+                result=itemgetter("query") | execute_query
+            )
+        )
+        code = chain.invoke({"question": question})
+        return code, db
 
     def invoke(self, question: str, session_id: str) -> str:
         config = {"configurable": {"session_id": session_id}}
         trimmer = self.llm_memory()
-        prompt = self.prompt_gen()
+        img_caps = []
+        img_paths = []
+        #SQL
+        prompt = self.sql_prompt_gen()
+        class Classification(BaseModel):
+            answer: str = Field(description="An answer of the question")
+            accurate: bool = Field(description="Can an answer be used to answer the question")
+        llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
+            Classification
+        )
         chain = (
             RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
             | prompt
-            | self.model
+            | llm
             | self.parser
         )
         with_message_history = RunnableWithMessageHistory(
@@ -233,22 +297,71 @@ class AIAssistant:
             get_session_history_mongodb,
             input_messages_key="question", #Which key is user's input
         )
-        docs = self.docs_gen(question)
-        if docs[0].page_content != 'Không có tài liệu liên quan đến câu hỏi này.':
-            img_caps = img_caps_gen(docs)
-        else:
-            img_caps = []
-        docs = "\n\n".join(doc.page_content for doc in docs)
-        print(docs)
-        print("/////////////////////////////////////////////")
+        code, db = self.query_gen(question)
+        pattern = r"img\\\\produces_property\\\\[^\s]+\.png"
+        matches = re.findall(pattern, str(code['result']))
+        if matches:
+            matches.reverse()
+            for idx, match in enumerate(matches):
+                img_paths += [match]
+                cap = "Hình "+str(idx+1)
+                img_caps += [cap]
+                code['result'] = code['result'].replace(match,"Ảnh minh họa: " + cap)
+        try:
+            db.run(code['query'])
+            print(code['query'])
+            print(code['result'])
+            print("///////////////////////////////////")
+            # result = with_message_history.invoke(
+            #     {
+            #         "question": [HumanMessage(content=question)],
+            #         "query": code['query'],
+            #         "result": code['result']
+            #     },
+            #     config=config,
+            # )
+        except Exception as e:
+            print(e)
+            result = "Không có dữ liệu để truy vấn"
         result = with_message_history.invoke(
             {
                 "question": [HumanMessage(content=question)],
-                "doc": docs
+                "query": code['query'],
+                "result": code['result']
             },
             config=config,
         )
-        return result, img_caps, docs
+        print("result: ",result)
+        #DOCS
+        if "Không có dữ liệu để truy vấn" in result:
+            prompt = self.docs_prompt_gen()
+            chain = (
+                RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+                | prompt
+                | self.model
+                | self.parser
+            )
+            with_message_history = RunnableWithMessageHistory(
+                chain,
+                get_session_history_mongodb,
+                input_messages_key="question", #Which key is user's input
+            )
+            docs = self.docs_gen(question)
+            if docs[0].page_content != 'Không có tài liệu liên quan đến câu hỏi này.':
+                img_caps = img_caps_gen(docs)
+            docs = "\n\n".join(doc.page_content for doc in docs)
+            print(docs)
+            print("/////////////////////////////////////////////")
+            result = with_message_history.invoke(
+                {
+                    "question": [HumanMessage(content=question)],
+                    "doc": docs
+                },
+                config=config,
+            )
+        else:
+            docs = ''
+        return result, img_caps, img_paths, docs
     
     def stream(self, question: str, session_id: str) -> str:
         config = {"configurable": {"session_id": session_id}}

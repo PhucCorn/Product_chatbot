@@ -4,6 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
+from langchain_community.utilities import SQLDatabase
 # import pandas as pd
 # from tabulate import tabulate
 
@@ -116,4 +117,16 @@ def vn_2_en(text):
     chain = prompt | llm
     result = chain.invoke({"phrases": text})
     return result.content
+
+def connect_database():
+    username = "postgres"
+    password = "12345678"
+    host = "localhost"
+    port = "5432"
+    database = "postgres"
+    postgres_uri = f"postgresql://{username}:{password}@{host}:{port}/{database}"
+    db = SQLDatabase.from_uri(postgres_uri)
+    return db
+
+
 
