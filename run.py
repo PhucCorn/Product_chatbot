@@ -74,7 +74,7 @@ async def handle_new_message(event, stream=False):
             except Exception as e:
                 await event.respond('Đã xảy ra lỗi trong quá trình sinh câu trả lời')
                 break
-    if answer != "Tôi không được cung cấp thông tin để trả lời câu hỏi này":
+    if "Tôi không được cung cấp thông tin để trả lời câu hỏi này" not in answer:
         if img_paths == []:
             relevances = is_relevance(img_caps, answer, message, relevant_docs)
             for i, img_cap in enumerate(img_caps):

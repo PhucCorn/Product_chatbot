@@ -23,8 +23,10 @@ from langchain.retrievers import EnsembleRetriever
 from langchain.chains import create_sql_query_chain
 from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
 from langchain_core.runnables import RunnableLambda
-from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate, FewShotPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
+from langchain_community.vectorstores import FAISS
 from operator import itemgetter
 from sqlalchemy.exc import ProgrammingError
 import uuid
@@ -89,6 +91,50 @@ class AIAssistant:
                     Nhớ ghi lại các chú thích ảnh trong câu trả lời.
                     Câu trả lời: 
                     """
+        )
+        return prompt
+    
+    def sql_code_prompt_gen(self, question, db_info):
+        examples = [
+            {
+                "input": "kích thước túi pe cả ảnh minh họa", 
+                "query": """SELECT "size_type", "length", "tolerance", "image_path" 
+                            FROM "packaging_sizes"
+                            WHERE "id" = 'BT1KH00051KP0001'
+                            AND "size_type" = 'Túi PE'
+                            LIMIT 5;"""
+            },
+            {
+                "input": "chiều ngang bao của Bao dán đáy 3 lớp giấy có cả ảnh minh họa", 
+                "query": """SELECT "size_type", "length", "tolerance", "image_path" 
+                            FROM "packaging_sizes"
+                            WHERE "id" = 'BT0KH00000KP0000'
+                            AND "size_type" = 'Chiều ngang bao'
+                            LIMIT 5;"""
+            },
+            {
+                "input": "chiều rộng đáy bao của Bao dán đáy 3 lớp giấy có cả ảnh minh họa", 
+                "query": """SELECT "size_type", "length", "tolerance", "image_path" 
+                            FROM "packaging_sizes"
+                            WHERE "id" = 'BT0KH00000KP0000'
+                            AND "size_type" = 'Chiều rộng đáy bao'
+                            LIMIT 5;"""
+            },
+        ]
+        example_prompt = PromptTemplate.from_template("User input: {input} \nSQL query: {query}")
+        example_selector = SemanticSimilarityExampleSelector.from_examples(
+            examples,
+            OpenAIEmbeddings(model="text-embedding-3-large"),
+            FAISS,
+            k=5,
+            input_keys=["input"],
+        )
+        prompt = FewShotPromptTemplate(
+            example_selector=example_selector,
+            example_prompt=example_prompt,
+            prefix="You are a PostgreSQL expert. Given an input question, create a syntactically correct PostgreSQL query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}"+str(db_info)+"\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
+            suffix="User input: {input}"+question+"\nSQL query: ",
+            input_variables=["input", "top_k", "table_info"],
         )
         return prompt
     
@@ -243,8 +289,12 @@ class AIAssistant:
     def query_gen(self, question):
         db = connect_database()
         def sql_gen(question):
+            prompt = self.sql_code_prompt_gen(question['question'],db.get_table_info())
+            write_query = create_sql_query_chain(self.model, db, prompt)
+            print("prompt: --------------------------")
+            write_query.get_prompts()[0].pretty_print()
+            print("------------------------------------")
             for i in range(5):
-                write_query = create_sql_query_chain(self.model, db)
                 sql_code = write_query.invoke(question)
                 if ": " in sql_code:
                     sql_code = sql_code.strip().split(": ")[1]
@@ -281,8 +331,8 @@ class AIAssistant:
         #SQL
         prompt = self.sql_prompt_gen()
         class Classification(BaseModel):
-            answer: str = Field(description="An answer of the question")
-            accurate: bool = Field(description="Can an answer be used to answer the question")
+            output: str = Field(description="An answer of the question")
+            capable: bool = Field(description="Can LLm answer the question, True is Yes, False is No")
         llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
             Classification
         )
@@ -290,7 +340,7 @@ class AIAssistant:
             RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
             | prompt
             | llm
-            | self.parser
+            | (lambda x: {"capable": x.capable, "output": x.output})
         )
         with_message_history = RunnableWithMessageHistory(
             chain,
@@ -312,28 +362,20 @@ class AIAssistant:
             print(code['query'])
             print(code['result'])
             print("///////////////////////////////////")
-            # result = with_message_history.invoke(
-            #     {
-            #         "question": [HumanMessage(content=question)],
-            #         "query": code['query'],
-            #         "result": code['result']
-            #     },
-            #     config=config,
-            # )
+            result = with_message_history.invoke(
+                {
+                    "question": [HumanMessage(content=question)],
+                    "query": code['query'],
+                    "result": code['result']
+                },
+                config=config,
+            )
         except Exception as e:
             print(e)
             result = "Không có dữ liệu để truy vấn"
-        result = with_message_history.invoke(
-            {
-                "question": [HumanMessage(content=question)],
-                "query": code['query'],
-                "result": code['result']
-            },
-            config=config,
-        )
-        print("result: ",result)
         #DOCS
-        if "Không có dữ liệu để truy vấn" in result:
+        print("result: ",result)
+        if result['capable'] is False:
             prompt = self.docs_prompt_gen()
             chain = (
                 RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
@@ -360,6 +402,7 @@ class AIAssistant:
                 config=config,
             )
         else:
+            result = result['output']
             docs = ''
         return result, img_caps, img_paths, docs
     
