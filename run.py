@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import openai
 import os
 from pymongo import MongoClient
-import datetime
+from datetime import datetime
 import time as t
 from pipeline import AIAssistant
 from util import *
@@ -48,7 +48,7 @@ def insert_messages(session_id, question, answer, time):
 async def handle_new_message(event, stream=False):
     #Collect information from message
     sender = await event.get_sender()
-    time = datetime.datetime.now()
+    time = datetime.now()
     message = event.message.message
     session_id = sender.username
     #Gen the answer

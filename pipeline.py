@@ -41,7 +41,7 @@ class AIAssistant:
         self.model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
         self.embedding = OpenAIEmbeddings(model="text-embedding-3-large")
         self.parser = StrOutputParser()
-        self.retriever = self.tree_retriever()
+        # self.retriever = self.tree_retriever()
         
     def llm_memory(self):
         trimmer = trim_messages(
@@ -87,14 +87,14 @@ class AIAssistant:
                     Câu hỏi: {question}
                     SQL Query: {query}
                     Kết quả SQL: {result}
-                    Nếu không có thông tin để trả lời, câu hỏi không liên quan hoặc SQL Query bị lỗi thì trả lời là \"Không có dữ liệu để truy vấn\"
+                    Nếu không có thông tin để trả lời, câu hỏi không liên quan, hoặc câu trả lời không liên quan đến câu hỏi, hoặc SQL Query bị lỗi thì trả lời là \"Không có dữ liệu để truy vấn\"
                     Nhớ ghi lại các chú thích ảnh trong câu trả lời.
                     Câu trả lời: 
                     """
         )
         return prompt
     
-    def sql_code_prompt_gen(self, question, db_info):
+    def sql_code_prompt_gen(self, history):
         examples = [
             {
                 "input": "kích thước túi pe cả ảnh minh họa", 
@@ -132,8 +132,9 @@ class AIAssistant:
         prompt = FewShotPromptTemplate(
             example_selector=example_selector,
             example_prompt=example_prompt,
-            prefix="You are a PostgreSQL expert. Given an input question, create a syntactically correct PostgreSQL query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}"+str(db_info)+"\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
-            suffix="User input: {input}"+question+"\nSQL query: ",
+            # prefix="You are a PostgreSQL expert. Given an input question, create a syntactically correct PostgreSQL query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}"+str(db_info)+"\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
+            prefix="You are a PostgreSQL expert. Given an input question, create a syntactically correct PostgreSQL query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
+            suffix="Message history: "+str(history)+"\nUser input: {input}\nSQL query: ",
             input_variables=["input", "top_k", "table_info"],
         )
         return prompt
@@ -286,15 +287,22 @@ class AIAssistant:
             docs = [Document(page_content="Không có tài liệu liên quan đến câu hỏi này.", metadata={})]
         return docs
     
-    def query_gen(self, question):
+    def query_gen(self, question, config):
         db = connect_database()
         def sql_gen(question):
-            prompt = self.sql_code_prompt_gen(question['question'],db.get_table_info())
+            trimmer = self.llm_memory()
+            memory_chain = (
+                RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+                | (lambda output: ({
+                    "question": output["messages"]
+                }))
+            )
+            question = memory_chain.invoke(question)
+            history = question['question'][:-1]
+            question['question'] = str(question['question'][-1])
+            prompt = self.sql_code_prompt_gen(history)
             write_query = create_sql_query_chain(self.model, db, prompt)
-            print("prompt: --------------------------")
-            write_query.get_prompts()[0].pretty_print()
-            print("------------------------------------")
-            for i in range(5):
+            for _ in range(5):
                 sql_code = write_query.invoke(question)
                 if ": " in sql_code:
                     sql_code = sql_code.strip().split(": ")[1]
@@ -319,8 +327,19 @@ class AIAssistant:
             RunnablePassthrough.assign(query=write_query).assign(
                 result=itemgetter("query") | execute_query
             )
+            | (lambda output: (output.update({'output': output['result']}), output)[-1])
         )
-        code = chain.invoke({"question": question})
+        sql_gen_with_message_history = RunnableWithMessageHistory(
+            chain,
+            get_session_history_mongodb,
+            input_messages_key="question", #Which key is user's input
+        )
+        code = sql_gen_with_message_history.invoke(
+            {
+                "question": question
+            },
+            config=config,)
+        delete_two_most_recent_message(config['configurable']['session_id'])
         return code, db
 
     def invoke(self, question: str, session_id: str) -> str:
@@ -328,57 +347,66 @@ class AIAssistant:
         trimmer = self.llm_memory()
         img_caps = []
         img_paths = []
-        #SQL
-        prompt = self.sql_prompt_gen()
-        class Classification(BaseModel):
-            output: str = Field(description="An answer of the question")
-            capable: bool = Field(description="Can LLm answer the question, True is Yes, False is No")
-        llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
-            Classification
-        )
-        chain = (
-            RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
-            | prompt
-            | llm
-            | (lambda x: {"capable": x.capable, "output": x.output})
-        )
-        with_message_history = RunnableWithMessageHistory(
-            chain,
-            get_session_history_mongodb,
-            input_messages_key="question", #Which key is user's input
-        )
-        code, db = self.query_gen(question)
-        pattern = r"img\\\\produces_property\\\\[^\s]+\.png"
-        matches = re.findall(pattern, str(code['result']))
-        if matches:
-            matches.reverse()
-            for idx, match in enumerate(matches):
-                img_paths += [match]
-                cap = "Hình "+str(idx+1)
-                img_caps += [cap]
-                code['result'] = code['result'].replace(match,"Ảnh minh họa: " + cap)
-        try:
-            db.run(code['query'])
-            print(code['query'])
-            print(code['result'])
-            print("///////////////////////////////////")
-            result = with_message_history.invoke(
-                {
-                    "question": [HumanMessage(content=question)],
-                    "query": code['query'],
-                    "result": code['result']
-                },
-                config=config,
+        result = {'capable': False}
+        #routing
+        db = connect_database()
+        sql_info = db.get_table_info()
+        response = routing(question,sql_info, config)
+        print("RESPONSE: ",response)
+        if response == 'True':
+            #SQL
+            prompt = self.sql_prompt_gen()
+            class Classification(BaseModel):
+                output: str = Field(description="An answer of the question")
+                capable: bool = Field(description="Can LLm answer the question, True is Yes, False is No")
+            llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
+                Classification
             )
-        except Exception as e:
-            print(e)
-            result = "Không có dữ liệu để truy vấn"
-        #DOCS
-        print("result: ",result)
-        if result['capable'] is False:
+            chain = (
+                RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+                | (lambda output: (output.update({'question': output['messages']}), output)[-1])
+                | prompt
+                | llm
+                | (lambda x: {"capable": x.capable, "output": x.output})
+            )
+            with_message_history = RunnableWithMessageHistory(
+                chain,
+                get_session_history_mongodb,
+                input_messages_key="question", #Which key is user's input
+            )
+            code, db = self.query_gen(question,config)
+            pattern = r"img\\\\produces_property\\\\[^\s]+\.png"
+            matches = re.findall(pattern, str(code['result']))
+            if matches:
+                matches.reverse()
+                for idx, match in enumerate(matches):
+                    img_paths += [match]
+                    cap = "Hình "+str(idx+1)
+                    img_caps += [cap]
+                    code['result'] = code['result'].replace(match,"Ảnh minh họa: " + cap)
+            try:
+                db.run(code['query'])
+                print(code['query'])
+                print(code['result'])
+                print("///////////////////////////////////")
+                result = with_message_history.invoke(
+                    {
+                        "question": [HumanMessage(content=question)],
+                        "query": code['query'],
+                        "result": code['result']
+                    },
+                    config=config,
+                )
+            except Exception as e:
+                print(e)
+                result = {'capable': False}
+            print("result: ",result)
+        if response == 'False' or (response == 'True' and result['capable'] == False):
+            #DOCS
             prompt = self.docs_prompt_gen()
             chain = (
                 RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+                | (lambda output: (output.update({'question': output['messages']}), output)[-1])
                 | prompt
                 | self.model
                 | self.parser
@@ -412,6 +440,7 @@ class AIAssistant:
         prompt = self.prompt_gen()
         chain = (
             RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+            | (lambda output: (output.update({'question': output['messages']}), output)[-1])
             | prompt
             | self.model
             | self.parser

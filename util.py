@@ -5,8 +5,14 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.utilities import SQLDatabase
-# import pandas as pd
-# from tabulate import tabulate
+from langchain_core.messages import (
+    trim_messages,
+)
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from pymongo import MongoClient
+from datetime import datetime
+from operator import itemgetter
 
 
 def get_session_history_mongodb(session_id):
@@ -16,6 +22,31 @@ def get_session_history_mongodb(session_id):
         database_name="product_chat_database", 
         collection_name="messages"
     )
+    
+def delete_two_most_recent_message(session_id):
+    mongo_uri = 'mongodb://localhost:27017/'
+    database_name = 'product_chat_database'
+    collection_name = 'messages'
+    client = MongoClient(mongo_uri)
+    db = client[database_name]
+    collection = db[collection_name]
+    for _ in range(2):
+        try:
+            # Retrieve the most recent message
+            most_recent_message = collection.find_one({'SessionId': session_id},sort=[('timestamp', -1)])
+            
+            if most_recent_message:
+                most_recent_message_id = most_recent_message['_id']
+
+                # Delete the most recent message
+                collection.delete_one({'_id': most_recent_message_id})
+                print(f"Deleted message with ID: {most_recent_message_id}")
+            else:
+                print("No messages found.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    # Close the MongoDB connection
+    client.close()
     
 def bbas_docs():
     docs = docs = [
@@ -127,6 +158,58 @@ def connect_database():
     postgres_uri = f"postgresql://{username}:{password}@{host}:{port}/{database}"
     db = SQLDatabase.from_uri(postgres_uri)
     return db
+
+def routing(question, sql_info, config):
+    class SQLClassification(BaseModel):
+        is_sql_related: bool = Field(description="True if the question is related to SQL, otherwise False")
+    template = """
+    You are a helpful assistant with expertise in SQL and database management. Your task is to determine if the provided question is related to querying a SQL database.
+    
+    A SQL database infor: "{sql_info}"
+    A message history: {history}
+    Question: "{question}"
+
+    Please classify whether the question is SQL-related or not, and provide a brief reason.
+
+    Response format:
+    is_sql_related: <True/False>
+    """
+    prompt = ChatPromptTemplate.from_template(template)
+    llm = ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0).with_structured_output(SQLClassification)
+    token_counter_model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
+    trimmer = trim_messages(
+        max_tokens=500,
+        strategy="last",
+        token_counter=token_counter_model,
+        include_system=True,
+        allow_partial=False,
+        start_on="human",
+    )
+    chain = (
+        RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+        | (lambda output: (output.update({'question': output['messages']}), output)[-1])
+        | (lambda output: (
+            output.update({'history': output['question'][:-1]}),
+            output.update({'question': output['question'][-1]}),
+            output)[-1])
+        | prompt
+        | llm
+        | (lambda output: str(output.is_sql_related))
+    )
+    with_message_history = RunnableWithMessageHistory(
+        chain,
+        get_session_history_mongodb,
+        input_messages_key="question", #Which key is user's input
+    )
+    response = with_message_history.invoke(
+        {
+            "sql_info": sql_info, 
+            'question': question
+        },
+        config=config,
+    )
+    delete_two_most_recent_message(config['configurable']['session_id'])
+    return response
 
 
 
