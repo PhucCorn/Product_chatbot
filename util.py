@@ -13,6 +13,8 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from pymongo import MongoClient
 from datetime import datetime
 from operator import itemgetter
+import json
+import ast
 
 
 def get_session_history_mongodb(session_id):
@@ -30,17 +32,17 @@ def delete_two_most_recent_message(session_id):
     client = MongoClient(mongo_uri)
     db = client[database_name]
     collection = db[collection_name]
+    messages = list(collection.find({'SessionId': 'phuccngo'},sort=[('timestamp', -1)]))
     for _ in range(2):
         try:
             # Retrieve the most recent message
-            most_recent_message = collection.find_one({'SessionId': session_id},sort=[('timestamp', -1)])
-            
+            most_recent_message = list(collection.find({'SessionId': 'phuccngo'}))[-1]
             if most_recent_message:
                 most_recent_message_id = most_recent_message['_id']
-
+                # message = json.loads(most_recent_message['History'])['data']['content']
                 # Delete the most recent message
                 collection.delete_one({'_id': most_recent_message_id})
-                print(f"Deleted message with ID: {most_recent_message_id}")
+                # print(f"Deleted message with message: {message}")
             else:
                 print("No messages found.")
         except Exception as e:
@@ -165,8 +167,8 @@ def routing(question, sql_info, config):
     template = """
     You are a helpful assistant with expertise in SQL and database management. Your task is to determine if the provided question is related to querying a SQL database.
     
-    A SQL database infor: "{sql_info}"
-    A message history: {history}
+    A SQL database infor: \n{sql_info}\n
+    A message history: \n{history}\n
     Question: "{question}"
 
     Please classify whether the question is SQL-related or not, and provide a brief reason.
@@ -175,7 +177,7 @@ def routing(question, sql_info, config):
     is_sql_related: <True/False>
     """
     prompt = ChatPromptTemplate.from_template(template)
-    llm = ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0).with_structured_output(SQLClassification)
+    llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(SQLClassification)
     token_counter_model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
     trimmer = trim_messages(
         max_tokens=500,
@@ -210,6 +212,17 @@ def routing(question, sql_info, config):
     )
     delete_two_most_recent_message(config['configurable']['session_id'])
     return response
+
+def get_table_info_with_full_packagings_samples(db):
+    packagings_info = db.get_table_info(['packagings'])
+    packagings_samples = db.run('SELECT * FROM packagings;')
+    packagings_samples = ast.literal_eval(packagings_samples)
+    samples = ""
+    for line in packagings_samples[3:]:
+        samples += "\t".join(line)+'\n'
+
+    sql_info = db.get_table_info([item for item in db.get_table_names() if item != 'packagings'])
+    return packagings_info[:-2]+samples+"\n"+sql_info
 
 
 

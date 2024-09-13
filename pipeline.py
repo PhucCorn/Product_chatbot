@@ -52,11 +52,11 @@ class AIAssistant:
             allow_partial=False,
             start_on="human",
         )
-        query = {'username': 'phuccngo'}
-        dbclient = MongoClient('mongodb://localhost:27017/')
-        db = dbclient['product_chat_database']
-        conversations_collection = db['messages']
-        result = conversations_collection.find_one(query)
+        # query = {'username': 'phuccngo'}
+        # dbclient = MongoClient('mongodb://localhost:27017/')
+        # db = dbclient['product_chat_database']
+        # conversations_collection = db['messages']
+        # result = conversations_collection.find_one(query)
         return trimmer
     
     def docs_prompt_gen(self):
@@ -84,17 +84,18 @@ class AIAssistant:
                     Bạn là AI Chatbot của Công ty CP TM & SX Bao Bì Ánh Sáng hay BBAS. 
                     Bạn ở đây để trả lời tất cả các câu hỏi về các sản phẩm của doanh nghiệp với các thông tin bạn được cung cấp. 
                     Bạn sẽ được cung cấp câu hỏi của người dùng, SQL query tương ứng, và kết quả truy xuất SQL, trả lời câu hỏi của người dùng.
+                    Lịch sử cuộc hội thoại: {history}
                     Câu hỏi: {question}
                     SQL Query: {query}
                     Kết quả SQL: {result}
                     Nếu không có thông tin để trả lời, câu hỏi không liên quan, hoặc câu trả lời không liên quan đến câu hỏi, hoặc SQL Query bị lỗi thì trả lời là \"Không có dữ liệu để truy vấn\"
-                    Nhớ ghi lại các chú thích ảnh trong câu trả lời.
+                    Nếu kết quả SQL có chứa 'Ảnh minh họa: Hình ...', nhớ ghi lại các chú thích ảnh trong câu trả lời. Nếu không có thì đừng thêm vào.
                     Câu trả lời: 
                     """
         )
         return prompt
     
-    def sql_code_prompt_gen(self, history):
+    def sql_code_prompt_gen(self, general_table_info):
         examples = [
             {
                 "input": "kích thước túi pe cả ảnh minh họa", 
@@ -120,6 +121,13 @@ class AIAssistant:
                             AND "size_type" = 'Chiều rộng đáy bao'
                             LIMIT 5;"""
             },
+            {
+                "input": "thị trường của loại bao giấy 25kg TAPX-8 là chủ yếu ở đâu",
+                "query": """SELECT "market"
+                            FROM "packagings"
+                            WHERE "id" = 'BT1KH00051KP0001'
+                            LIMIT 5;"""
+            }
         ]
         example_prompt = PromptTemplate.from_template("User input: {input} \nSQL query: {query}")
         example_selector = SemanticSimilarityExampleSelector.from_examples(
@@ -133,8 +141,8 @@ class AIAssistant:
             example_selector=example_selector,
             example_prompt=example_prompt,
             # prefix="You are a PostgreSQL expert. Given an input question, create a syntactically correct PostgreSQL query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}"+str(db_info)+"\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
-            prefix="You are a PostgreSQL expert. Given an input question, create a syntactically correct PostgreSQL query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
-            suffix="Message history: "+str(history)+"\nUser input: {input}\nSQL query: ",
+            prefix="You are a PostgreSQL expert. Given an input question, create a syntactically correct PostgreSQL query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: \n{table_info}\n"+general_table_info+"\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
+            suffix="Message history: {history}\nUser input: {input}\nSQL query: ",
             input_variables=["input", "top_k", "table_info"],
         )
         return prompt
@@ -287,20 +295,18 @@ class AIAssistant:
             docs = [Document(page_content="Không có tài liệu liên quan đến câu hỏi này.", metadata={})]
         return docs
     
-    def query_gen(self, question, config):
-        db = connect_database()
+    def query_gen(self, question, config, db, general_table):
         def sql_gen(question):
-            trimmer = self.llm_memory()
-            memory_chain = (
-                RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
-                | (lambda output: ({
-                    "question": output["messages"]
-                }))
-            )
-            question = memory_chain.invoke(question)
-            history = question['question'][:-1]
-            question['question'] = str(question['question'][-1])
-            prompt = self.sql_code_prompt_gen(history)
+            def get_general_table(db, general_table):
+                general_table_info = db.get_table_info([general_table])
+                general_table_samples = db.run('SELECT * FROM '+general_table+';')
+                general_table_samples = ast.literal_eval(general_table_samples)
+                samples = ""
+                for line in general_table_samples[3:]:
+                    samples += "\t".join(line)+'\n'
+                return general_table_info[:-2]+samples
+            general_table_info = get_general_table(db,general_table)
+            prompt = self.sql_code_prompt_gen(general_table_info)
             write_query = create_sql_query_chain(self.model, db, prompt)
             for _ in range(5):
                 sql_code = write_query.invoke(question)
@@ -323,8 +329,15 @@ class AIAssistant:
             return sql_code
         write_query  = RunnableLambda(sql_gen)
         execute_query = QuerySQLDataBaseTool(db=db)
+        trimmer = self.llm_memory()
         chain = (
-            RunnablePassthrough.assign(query=write_query).assign(
+            RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+            | (lambda output: (output.update({'question': output['messages']}), output)[-1])
+            | (lambda output: (
+                output.update({'history': str(output['question'][:-1])}),
+                output.update({'question': str(output['question'][-1])}),
+                output)[-1])
+            | RunnablePassthrough.assign(query=write_query).assign(
                 result=itemgetter("query") | execute_query
             )
             | (lambda output: (output.update({'output': output['result']}), output)[-1])
@@ -340,7 +353,7 @@ class AIAssistant:
             },
             config=config,)
         delete_two_most_recent_message(config['configurable']['session_id'])
-        return code, db
+        return code
 
     def invoke(self, question: str, session_id: str) -> str:
         config = {"configurable": {"session_id": session_id}}
@@ -350,7 +363,7 @@ class AIAssistant:
         result = {'capable': False}
         #routing
         db = connect_database()
-        sql_info = db.get_table_info()
+        sql_info = get_table_info_with_full_packagings_samples(db)
         response = routing(question,sql_info, config)
         print("RESPONSE: ",response)
         if response == 'True':
@@ -365,6 +378,10 @@ class AIAssistant:
             chain = (
                 RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
                 | (lambda output: (output.update({'question': output['messages']}), output)[-1])
+                | (lambda output: (
+                output.update({'history': str(output['question'][:-1])}),
+                output.update({'question': str(output['question'][-1])}),
+                output)[-1])
                 | prompt
                 | llm
                 | (lambda x: {"capable": x.capable, "output": x.output})
@@ -374,33 +391,39 @@ class AIAssistant:
                 get_session_history_mongodb,
                 input_messages_key="question", #Which key is user's input
             )
-            code, db = self.query_gen(question,config)
-            pattern = r"img\\\\produces_property\\\\[^\s]+\.png"
-            matches = re.findall(pattern, str(code['result']))
-            if matches:
-                matches.reverse()
-                for idx, match in enumerate(matches):
-                    img_paths += [match]
-                    cap = "Hình "+str(idx+1)
-                    img_caps += [cap]
-                    code['result'] = code['result'].replace(match,"Ảnh minh họa: " + cap)
-            try:
-                db.run(code['query'])
-                print(code['query'])
+            code = self.query_gen(question,config, db, general_table='packagings')
+            print(code['query'])
+            print(code['result'])
+            print("///////////////////////////////////")
+            if code['result'] != '':
+                pattern = r"img\\\\produces_property\\\\[^\s]+\.png"
+                matches = re.findall(pattern, str(code['result']))
+                if matches:
+                    matches.reverse()
+                    for idx, match in enumerate(matches):
+                        img_paths += [match]
+                        cap = "Hình "+str(idx+1)
+                        img_caps += [cap]
+                        code['result'] = code['result'].replace(match,"Ảnh minh họa: " + cap)
                 print(code['result'])
-                print("///////////////////////////////////")
-                result = with_message_history.invoke(
-                    {
-                        "question": [HumanMessage(content=question)],
-                        "query": code['query'],
-                        "result": code['result']
-                    },
-                    config=config,
-                )
-            except Exception as e:
-                print(e)
-                result = {'capable': False}
+                try:
+                    db.run(code['query'])
+                    result = with_message_history.invoke(
+                        {
+                            "question": [HumanMessage(content=question)],
+                            "query": code['query'],
+                            "result": code['result']
+                        },
+                        config=config,
+                    )
+                except Exception as e:
+                    print(e)
+                    result = {'capable': False}
+            else:
+                result = {'capable': False, 'output': 'Không có dữ liệu để truy vấn'}
             print("result: ",result)
+            if response == 'True' and result['capable'] == False:
+                delete_two_most_recent_message(config['configurable']['session_id'])
         if response == 'False' or (response == 'True' and result['capable'] == False):
             #DOCS
             prompt = self.docs_prompt_gen()
@@ -429,6 +452,8 @@ class AIAssistant:
                 },
                 config=config,
             )
+            if "Tôi không được cung cấp thông tin để trả lời câu hỏi này" in result:
+                delete_two_most_recent_message(config['configurable']['session_id'])
         else:
             result = result['output']
             docs = ''
