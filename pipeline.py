@@ -41,7 +41,7 @@ class AIAssistant:
         self.model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
         self.embedding = OpenAIEmbeddings(model="text-embedding-3-large")
         self.parser = StrOutputParser()
-        # self.retriever = self.tree_retriever()
+        self.retriever = self.tree_retriever()
         
     def llm_memory(self):
         trimmer = trim_messages(
