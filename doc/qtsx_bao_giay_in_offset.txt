@@ -1,0 +1,35 @@
+Quy trình sản xuất Tổng quan Bao giấy In Offset
+Quy trình sản xuất tổng quát
+CÔNG ĐOẠN 1: Nhập nguyên vật liệu (Màng OPP nhiệt, Hạt nhựa để kéo sợi, Giấy trắng Việt (nẹp), Hạt nhựa để thổi túi lồng, Hạt nhựa tráng, Hạt nhựa dán, Túi PE mua ngoài/Tự thổi, Giấy couche, Chỉ may, dây bó bao)
+CÔNG ĐOẠN 2: Kéo sợi
+Bước 1: Dùng hạt nhựa để kéo sợi trộn theo tỷ lệ hợp lý: (Hạt nhựa PP T3034 Taical 1001-4)
+Bước 2: Đi qua hệ thống đùn được nấu nóng chảy tạo thành màng phim sau đó được chia sợi ==> qua hệ thống hấp gia nhiệt => kéo sợi đúng tiêu chuẩn yêu cầu => Sợi chạy qua dàn thu cuốn thành cuộn gọi là cuộn chỉ
+CÔNG ĐOẠN 3: Dệt mành
+Bước 1: Từ các cuộn chỉ sau khi kéo sợi.
+Bước 2: Đưa qua hệ thống máy dệt 6 con thoi và được dệt theo kiểu caro tạo thành mành dạng ống và được cuộn thành cuộn mành.
+CÔNG ĐOẠN 4: Chia nẹp
+Bước 1: Sử dụng cuộn nẹp KP giấy trắng việt
+Bước 2: Đưa qua máy chia biên để chia thành các cuộn nẹp theo đúng kích thước khách hàng yêu cầu
+CÔNG ĐOẠN 5: In ấn
+Bước 1: Giấy couche in offset
+Bước 2: Sẽ được mang gia công ngoài in offset theo hình yêu cầu của khách hàng
+CÔNG ĐOẠN 6: Bồi
+Bước 1: Giấy in sau khi mang gia công về và cuộn màng OPP nhiệt bóng
+Bước 2: Đưa qua hệ thống máy bồi, ghép với cuộn màng OPP nhiệt (dạng cuộn) tạo thành cuộn phức hợp OPP/giấy
+CÔNG ĐOẠN 7: Tráng ghép
+Bước 1: Sử dụng cuộn bán thành phẩm sau khi bồi, mành trắng sau khi dệt
+Bước 2: Hạt nhựa tráng Hạt nhựa PP M9600 100% => lớp keo tráng
+Bước 3: Tráng ghép lại bằng máy tráng cuộn bán thành phẩm sẽ được ghép với mành PP dệt bằng 1 lớp keo tráng
+CÔNG ĐOẠN 8: Dán cắt
+Bước 1: Sử dụng bán thành phẩm ở tổ tráng: Hạt nhựa dán (Hạt nhựa PP M9600 Vistamaxx)
+Bước 2: Đưa qua hệ thống xếp hông xăm hơi rồi cắt thành phẩm theo kích thước mà khách hàng yêu cầu
+CÔNG ĐOẠN 9: Lồng túi
+Bước 1: Sử dụng bán thành phẩm sau khi dán
+Bước 2: Túi PE mua ngoài hoặc đượC thổi ở máy thổi sẽ được lồng vào thanh sắt sau đó lồng bao
+CÔNG ĐOẠN 10: May và cắt
+Bước 1: Bao sau khi được lồng túi PE sẽ được đưa qua công đoạn may nẹp đáy
+Bước 2: Từ công đoạn may nẹp đáy bao => Tiếp nối đến cắt chỉ đáy bao để tạo nên sản phẩm hoàn chỉnh
+CÔNG ĐOẠN 11: Bó bao
+Bao sau khi được lồng túi sẽ được kiểm tra và sắp ngay ngắn theo từng xấp, mỗi xấp 25 bó 100 bao, bó 4 xấp lại với nhau thành một
+CÔNG ĐOAN 12: Đóng gói
+Bao sau khi được bó sẽ được đóng gói thành các kiện như hình và lưu kho chờ giao hàng

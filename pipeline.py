@@ -42,6 +42,7 @@ class AIAssistant:
         self.embedding = OpenAIEmbeddings(model="text-embedding-3-large")
         self.parser = StrOutputParser()
         self.retriever = self.tree_retriever()
+        self.short_retriever = self.multivector_subchunk_retriever()
         
     def llm_memory(self):
         trimmer = trim_messages(
@@ -88,7 +89,7 @@ class AIAssistant:
                     Câu hỏi: {question}
                     SQL Query: {query}
                     Kết quả SQL: {result}
-                    Nếu không có thông tin để trả lời, câu hỏi không liên quan, hoặc câu trả lời không liên quan đến câu hỏi, hoặc SQL Query bị lỗi thì trả lời là \"Không có dữ liệu để truy vấn\"
+                    Nếu không có thông tin để trả lời, câu hỏi không liên quan đến cơ sở dữ liệu, hoặc câu trả lời không liên quan đến câu hỏi, hoặc SQL Query bị lỗi thì trả lời là \"Không có dữ liệu để truy vấn\"
                     Nếu kết quả SQL có chứa 'Ảnh minh họa: Hình ...', nhớ ghi lại các chú thích ảnh trong câu trả lời. Nếu không có thì đừng thêm vào.
                     Câu trả lời: 
                     """
@@ -355,93 +356,85 @@ class AIAssistant:
         delete_two_most_recent_message(config['configurable']['session_id'])
         return code
 
-    def invoke(self, question: str, session_id: str) -> str:
-        config = {"configurable": {"session_id": session_id}}
+    def sql_branch(self, question, config, db, img_paths, img_caps):
         trimmer = self.llm_memory()
-        img_caps = []
-        img_paths = []
-        result = {'capable': False}
-        #routing
-        db = connect_database()
-        sql_info = get_table_info_with_full_packagings_samples(db)
-        response = routing(question,sql_info, config)
-        print("RESPONSE: ",response)
-        if response == 'True':
-            #SQL
-            prompt = self.sql_prompt_gen()
-            class Classification(BaseModel):
-                output: str = Field(description="An answer of the question")
-                capable: bool = Field(description="Can LLm answer the question, True is Yes, False is No")
-            llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
-                Classification
-            )
-            chain = (
-                RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
-                | (lambda output: (output.update({'question': output['messages']}), output)[-1])
-                | (lambda output: (
-                output.update({'history': str(output['question'][:-1])}),
-                output.update({'question': str(output['question'][-1])}),
-                output)[-1])
-                | prompt
-                | llm
-                | (lambda x: {"capable": x.capable, "output": x.output})
-            )
-            with_message_history = RunnableWithMessageHistory(
-                chain,
-                get_session_history_mongodb,
-                input_messages_key="question", #Which key is user's input
-            )
-            code = self.query_gen(question,config, db, general_table='packagings')
-            print(code['query'])
-            print(code['result'])
-            print("///////////////////////////////////")
-            if code['result'] != '':
-                pattern = r"img\\\\produces_property\\\\[^\s]+\.png"
-                matches = re.findall(pattern, str(code['result']))
-                if matches:
-                    matches.reverse()
-                    for idx, match in enumerate(matches):
-                        img_paths += [match]
-                        cap = "Hình "+str(idx+1)
-                        img_caps += [cap]
-                        code['result'] = code['result'].replace(match,"Ảnh minh họa: " + cap)
-                print(code['result'])
-                try:
-                    db.run(code['query'])
-                    result = with_message_history.invoke(
-                        {
-                            "question": [HumanMessage(content=question)],
-                            "query": code['query'],
-                            "result": code['result']
-                        },
-                        config=config,
-                    )
-                except Exception as e:
-                    print(e)
-                    result = {'capable': False}
-            else:
-                result = {'capable': False, 'output': 'Không có dữ liệu để truy vấn'}
-            print("result: ",result)
-            if response == 'True' and result['capable'] == False:
-                delete_two_most_recent_message(config['configurable']['session_id'])
-        if response == 'False' or (response == 'True' and result['capable'] == False):
-            #DOCS
-            prompt = self.docs_prompt_gen()
-            chain = (
-                RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
-                | (lambda output: (output.update({'question': output['messages']}), output)[-1])
-                | prompt
-                | self.model
-                | self.parser
-            )
-            with_message_history = RunnableWithMessageHistory(
-                chain,
-                get_session_history_mongodb,
-                input_messages_key="question", #Which key is user's input
-            )
-            docs = self.docs_gen(question)
-            if docs[0].page_content != 'Không có tài liệu liên quan đến câu hỏi này.':
-                img_caps = img_caps_gen(docs)
+        prompt = self.sql_prompt_gen()
+        class Classification(BaseModel):
+            output: str = Field(description="An answer of the question")
+            capable: bool = Field(description="Can LLm answer the question, True is Yes, False is No")
+        llm = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0).with_structured_output(
+            Classification
+        )
+        chain = (
+            RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+            | (lambda output: (output.update({'question': output['messages']}), output)[-1])
+            | (lambda output: (
+            output.update({'history': str(output['question'][:-1])}),
+            output.update({'question': str(output['question'][-1])}),
+            output)[-1])
+            | prompt
+            | llm
+            | (lambda x: {"capable": x.capable, "output": x.output})
+        )
+        with_message_history = RunnableWithMessageHistory(
+            chain,
+            get_session_history_mongodb,
+            input_messages_key="question", #Which key is user's input
+        )
+        code = self.query_gen(question,config, db, general_table='packagings')
+        print(code['query'])
+        print(code['result'])
+        print("///////////////////////////////////")
+        if code['result'] != '':
+            pattern = r"img\\\\produces_property\\\\[^\s]+\.png"
+            matches = re.findall(pattern, str(code['result']))
+            if matches:
+                matches.reverse()
+                for idx, match in enumerate(matches):
+                    img_paths += [match]
+                    cap = "Hình "+str(idx+1)
+                    img_caps += [cap]
+                    code['result'] = code['result'].replace(match,"Ảnh minh họa: " + cap)
+            try:
+                db.run(code['query'])
+                result = with_message_history.invoke(
+                    {
+                        "question": [HumanMessage(content=question)],
+                        "query": code['query'],
+                        "result": code['result']
+                    },
+                    config=config,
+                )
+            except Exception as e:
+                print(e)
+                result = {'capable': False}
+        else:
+            result = {'capable': False, 'output': 'Không có dữ liệu để truy vấn'}
+        print("result: ",result)
+        if result['capable'] == False:
+            delete_two_most_recent_message(config['configurable']['session_id'])
+        return result, img_paths, img_caps
+    
+    def docs_branch(self, question, config, img_caps):
+        trimmer = self.llm_memory()
+        prompt = self.docs_prompt_gen()
+        chain = (
+            RunnablePassthrough.assign(messages=itemgetter("question") | trimmer)
+            | (lambda output: (output.update({'question': output['messages']}), output)[-1])
+            | prompt
+            | self.model
+            | self.parser
+        )
+        with_message_history = RunnableWithMessageHistory(
+            chain,
+            get_session_history_mongodb,
+            input_messages_key="question", #Which key is user's input
+        )
+        docs = self.docs_gen(question)
+        if docs[0].page_content == 'Không có tài liệu liên quan đến câu hỏi này.':
+            result = "Tôi không được cung cấp thông tin để trả lời câu hỏi này"
+        else:
+            img_caps = img_caps_gen(docs)
             docs = "\n\n".join(doc.page_content for doc in docs)
             print(docs)
             print("/////////////////////////////////////////////")
@@ -452,8 +445,31 @@ class AIAssistant:
                 },
                 config=config,
             )
-            if "Tôi không được cung cấp thông tin để trả lời câu hỏi này" in result:
-                delete_two_most_recent_message(config['configurable']['session_id'])
+        if "Tôi không được cung cấp thông tin để trả lời câu hỏi này" in result:
+            delete_two_most_recent_message(config['configurable']['session_id'])
+        return result, img_caps, docs
+    
+    def invoke(self, question: str, session_id: str) -> str:
+        config = {"configurable": {"session_id": session_id}}
+        img_caps = []
+        img_paths = []
+        result = {'capable': False}
+        #routing
+        db = connect_database()
+        sql_info = get_table_info_with_full_packagings_samples(db)
+        response = routing(question,sql_info, config)
+        print("RESPONSE: ",response)
+        if response == 'True':
+            #SQL
+            result, img_paths, img_caps=self.sql_branch(question, config, db, img_paths, img_caps)
+        if response == 'False' or (response == 'True' and result['capable'] == False):
+            #DOCS
+            result, img_caps, docs = self.docs_branch(question, config, img_caps)
+            print(result)
+            if response == 'False' and "Tôi không được cung cấp thông tin để trả lời câu hỏi này" in result:
+                result, img_paths, img_caps=self.sql_branch(question, config, db, img_paths, img_caps)
+                result = result['output']
+                docs = ''
         else:
             result = result['output']
             docs = ''

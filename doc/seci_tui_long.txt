@@ -1,0 +1,77 @@
+BÁO CÁO SECI TÚI LỒNG
+
+1 Giới thiệu về túi lồng PE
+Túi lồng PE tại Bao Bì Ánh Sáng là túi làm từ nhựa LLDPE (Linear Low- Density Polyethylene) được thổi ở dạng ống trong suốt, hàn đáy với kích thước và độ dày phù hợp với quy cách bao PP dệt bên ngoài.
+
+2 Chức năng của túi lồng
+Chống thấm, chống ẩm (chức năng chính): Túi PE lồng bên trong có khả năng ngăn cách sản phẩm với môi trường bên ngoài, tránh ẩm mốc bảo vệ hoàn toàn sản phẩm với môi trường bên ngoài
+Tránh hao hụt sản phẩm: Sử dụng túi lồng PE là giải pháp chứa đựng an toàn nhất dành cho những sản phẩm dạng mịn hoặc siêu mịn, giúp sản phẩm không bị xì ra ngoài qua các khe dệt hoặc đường may.
+An toàn thực phẩm (túi lồng rin): Đối với ngành thực phẩm dùng túi lồng, tăng độ an toàn thực phẩm, tránh dị vật lọt vào lẫn với sản phẩm
+
+3 Sự khác nhau giữa túi lồng rin và thường
+3.1 Túi rin
+- Màu sắc: Trong suốt
+- Thành phần: LLDPE LL20211 FE
+- Tính chất: Cho phép nhìn thấy nội dung bên trong túi một cách rõ ràng, giúp kiểm tra và xác định sản phẩm hoặc vật liệu đã được đóng gói, Đảm bảo an toàn thực phẩm
+3.2 Túi thường
+- Màu sắc: Trắng đục (Vì có thêm phụ gia Taical)
+- Thành phần: LLDPE LL20211 FE và Hạt taical trắng EFPE 75T (CaCO3: 80%, phụ gia: 20%)
+- Tính chất: Màu đục che giấu sản phẩm và hạn chế các tác động từ ánh sáng, Không đảm bảo an toàn thực phẩm
+
+4 Đại lượng đặc trưng của túi lồng
+Độ dày là đại lượng đặc trưng của túi lồng, ảnh hưởng trực tiếp đến hiệu quả của túi lồng PE
+- Khả năng chịu lực: Độ dày ảnh hưởng đến khả năng chịu lực của túi lồng. Với độ dày tăng lên, túi lồng PE có thể chịu được áp lực và trọng lượng lớn hơn hạn chế tình trạng rách túi khi khách hàng vận chuyển bao.
+- Độ dày tối thiểu và tối đa của túi lồng tại Bao Bì Ánh Sáng: (Tối thiểu: 15 mic, Tối đa: 47 mic)
+Đối với các đơn hàng có độ dày túi lồng cao BBAS không sản xuất được thì sẽ đặt mua bên ngoài để đáp ứng yêu cầu của khách hàng.
+Công thức tính độ dày túi PE = (Khối lượng x 10000)/(2 x chiều rộng x chiều cao x 0.93)
+Trong đó:
+Độ dày của túi được tính bằng micromet (mic)
+Chiều rộng của túi được tính bằng centimet (cm)
+Chiều cao của túi được tính bằng centimet (cm)
+0.93: Tỷ trọng của túi được tính bằng (g/cm3)
+Khối lượng của túi được tính bằng gam (g).
+Ví dụ: túi lồng Vitec có thông số: 45x75 cm (15gr)
+Độ dày túi PE = (15 x 10000)/(2x45x75x0.93) ~ 23.8 micrô
+
+5 Cách xác định kích thước túi lồng
+Chiều rộng túi: Bằng hoặc lớn hơn chiều ngang bao (Rộng + hông): 1 - 2 cm
+Lưu ý:
+Phụ thuộc vào khuôn máy thổi và kích thước lô kéo, chiều rộng túi giới hạn từ 27 đến 62 (cm)
+Chiều dài túi:
+- Đối với bao mở miệng: Lớn hơn chiều dài thành phẩm bao 12 - 14cm.
+- Đối với bao gấp van: Lớn hơn chiều dài thành phẩm bao 20 - 22cm.
+Lưu ý:
+Chiều dài túi lồng đã bao gồm đáy. Theo tiêu chuẩn máy cắt túi tại BBAS chiều dài túi giới hạn từ 10 đến 150 (cm)
+
+6 Hai dạng hàn đáy của túi lồng tại BBAS
+6.1 MTLS (May trước lồng sau)
+- Độ dài đáy: 2 - 3cm
+- Đối với BBAS: Tối ưu hơn. Thao tác lồng túi nhanh hơn, không cần căng chỉnh túi lồng
+- Đối với khách hàng: Giảm năng suất đóng NVL vì thêm thao tác chỉnh sửa túi lồng
+6.2 LTMS (Lồng trước may sau)
+- Độ dài đáy: 4 - 5cm
+- Đối với BBAS: Rủi ro: May lủng túi, may không dính đáy, may lồi bóng ra ngoài,.. Thêm thời gian căng chỉnh túi lồng
+- Đối với khách hàng: Túi lồng dính đáy, giảm các thao tác phát sinh => tăng năng suất đóng NVL
+
+7 Khái niệm tuýp màng
+- Tuýp màng là ghép màng CPP vào phức hợp màng BOPP-mành PP dệt bằng các đường keo tuýp
+- Mục đích: chống thấm, tăng năng suất đóng NVL bên khách hàng và sử dụng cho công nghệ đóng gói tự động.
+
+8 So sánh bao tuýp màng và bao lồng túi
+8.1 Bao tuýp màng
+- Thao tác đóng NVL bên khách hàng nhanh = > Năng suất đóng NVL cao
+- Chống thấm ít hiệu quả hơn túi lồng (2 đầu hở, không khí luồng vào ở vị trí các lỗ kim may và ống nẹp)
+- Phù hợp với công nghệ đóng bằng hơi
+- Ảnh hưởng thẫm mỹ bao (Các đường gân keo tuýp)
+8.2 Bao lồng túi
+- Tốn thêm thời gian cho thao tác chỉnh miệng túi lồng => Giảm năng suất đóng NVL
+- Chống thấm tốt (Đáy túi được hàn, miệng túi thường được cột hoặc xoắn lại => giảm tác động từ không khí)
+- Phù hợp với công nghệ đóng bằng trục vít
+- Không ảnh hưởng thẫm mỹ bao
+
+9 Các thông số túi lồng bắt buộc trong phiếu yêu cầu sản xuất
+- Loại túi lồng: rin hoặc thường
+- Quy cách lồng: MTLS hoặc LTMS
+- Chiều dài túi (cm)
+- Chiều rộng túi(cm)
+- Khối lượng túi (gr) hoặc độ dày túi (mic)
