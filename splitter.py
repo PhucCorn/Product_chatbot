@@ -17,7 +17,7 @@ class PatternSplitter:
                 if pop.metadata['summary'] == '': 
                     content = content_finder(pop)
                     summary_content = "\n".join([content[0], pop.page_content] + content[1:])
-                    summaries_queue += [Document(page_content=summary_content, metadata={})]
+                    summaries_queue += [Document(page_content=summary_content, metadata={'source':docs[0].metadata['source']})]
                     pop.metadata['summary'] = len(summaries_queue)-1
                 stack[-1].metadata['subtree'] += [pop]
             return stack
@@ -42,7 +42,7 @@ class PatternSplitter:
             section = ''
             subsection = ''
             subsubsection = ''
-            stack = [Document(page_content='' ,metadata={'summary':-1, 'rank':0, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+            stack = [Document(page_content='' ,metadata={'source':docs[0].metadata['source'], 'summary':-1, 'rank':0, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
             for i in range(len(matches)):
                 start_idx = matches[i].start()+len(matches[i].group())
                 end_idx = matches[i + 1].start() if i + 1 < len(matches) else len(text)
@@ -54,7 +54,7 @@ class PatternSplitter:
                     subsubsection = ''
                     rank = 1
                     stack = pop_stack(rank, stack, summaries_queue)
-                    stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                    stack += [Document(page_content=content ,metadata={'source':docs[0].metadata['source'], 'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 elif matches[i].group() in section_matches:
                     section = matches[i].group()
                     subsection = ''
@@ -63,12 +63,12 @@ class PatternSplitter:
                     stack = pop_stack(rank, stack, summaries_queue)
                     # if content == '':
                     if matches[i].group()[:3]+'.1' in [x[:5] for x in subsection_matches]:
-                        stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                        stack += [Document(page_content=content ,metadata={'source':docs[0].metadata['source'], 'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                     else:
                         summary_content = "\n".join([chapter[10:], section, content])
-                        summaries_queue += [Document(page_content=summary_content, metadata={})]
+                        summaries_queue += [Document(page_content=summary_content, metadata={'source':docs[0].metadata['source'], })]
                         full_content = ": ".join([section[4:],content])
-                        stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'full_content': full_content, 'summary': len(summaries_queue)-1, 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                        stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'source':docs[0].metadata['source'], 'full_content': full_content, 'summary': len(summaries_queue)-1, 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 elif matches[i].group() in subsection_matches:
                     subsection = matches[i].group()
                     subsubsection = ''
@@ -76,19 +76,19 @@ class PatternSplitter:
                     stack = pop_stack(rank, stack, summaries_queue)
                     # if content == '':
                     if matches[i].group()[:5]+'.1' in [x[:7] for x in subsubsection_matches]:
-                        stack += [Document(page_content=content ,metadata={'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                        stack += [Document(page_content=content ,metadata={'source':docs[0].metadata['source'], 'summary':'', 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                     else:
                         summary_content = "\n".join([chapter[10:], section[4:], subsection, content])
-                        summaries_queue += [Document(page_content=summary_content, metadata={})]
+                        summaries_queue += [Document(page_content=summary_content, metadata={'source':docs[0].metadata['source'], })]
                         full_content = ": ".join([subsection[6:],content])
-                        stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'full_content': full_content, 'summary': len(summaries_queue)-1, 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                        stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'source':docs[0].metadata['source'], 'full_content': full_content, 'summary': len(summaries_queue)-1, 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
                 else:
                     subsubsection = matches[i].group()
                     rank = 4
                     summary_content = "\n".join([chapter[10:], section[4:], subsection[6:], subsubsection, content])
-                    summaries_queue += [Document(page_content=summary_content, metadata={})]
+                    summaries_queue += [Document(page_content=summary_content, metadata={'source':docs[0].metadata['source'], })]
                     full_content = ": ".join([subsubsection[8:],content])
-                    stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'full_content': full_content, 'summary': len(summaries_queue)-1, 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
+                    stack[-1].metadata['subtree'] += [Document(page_content=content, metadata={'source':docs[0].metadata['source'], 'full_content': full_content, 'summary': len(summaries_queue)-1, 'rank':rank, 'subtree':[], 'chapter':chapter, 'section':section, 'subsection':subsection, 'subsubsection':subsubsection})]
             stack = pop_stack(1, stack, summaries_queue)
             split_docs += [stack[0]]
             while True:

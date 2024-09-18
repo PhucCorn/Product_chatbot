@@ -75,12 +75,11 @@ async def handle_new_message(event, stream=False):
                 await event.respond('Đã xảy ra lỗi trong quá trình sinh câu trả lời')
                 break
     if "Tôi không được cung cấp thông tin để trả lời câu hỏi này" not in answer:
-        if img_paths == []:
+        if relevant_docs != '':
             relevances = is_relevance(img_caps, answer, message, relevant_docs)
             for i, img_cap in enumerate(img_caps):
                 if bool(relevances[i].dict()["relevance"]):
-                    file_path = "img/spkt/"+img_cap.split(":")[0].split(' ')[1]+"-spkt.png"
-                    await client.send_file(event.chat_id, file_path, caption=img_cap)
+                    await client.send_file(event.chat_id, img_paths[i], caption=img_cap)
         else:
             for idx, img_path in enumerate(img_paths):
                 await client.send_file(event.chat_id, img_path, caption=img_caps[idx])

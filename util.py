@@ -15,6 +15,7 @@ from datetime import datetime
 from operator import itemgetter
 import json
 import ast
+import os
 
 
 def get_session_history_mongodb(session_id):
@@ -94,7 +95,9 @@ def img_caps_gen(docs):
     for doc in docs:
         for img_cap in doc.metadata["img_cap"]:
             if img_cap not in img_caps:
-                img_caps += [img_cap]
+                file_name = doc.metadata['source'].split("/")[1][:-4]
+                file_path = "img/"+file_name+"/"+img_cap.split(":")[0].split(' ')[1]+"-"+file_name+".png"
+                img_caps += [(img_cap,file_path)]
     return img_caps
 
 def summary_chain():
@@ -223,7 +226,6 @@ def get_table_info_with_full_packagings_samples(db):
 
     sql_info = db.get_table_info([item for item in db.get_table_names() if item != 'packagings'])
     return packagings_info[:-2]+samples+"\n"+sql_info
-
 
 
 

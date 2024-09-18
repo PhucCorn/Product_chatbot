@@ -42,7 +42,7 @@ class AIAssistant:
         self.embedding = OpenAIEmbeddings(model="text-embedding-3-large")
         self.parser = StrOutputParser()
         self.retriever = self.tree_retriever()
-        self.short_retriever = self.multivector_subchunk_retriever()
+        self.short_retriever = self.multivector_summary_retriever()
         
     def llm_memory(self):
         trimmer = trim_messages(
@@ -186,7 +186,8 @@ class AIAssistant:
                 docs+=[loader.load()]
             splitter = PatternSplitter(patterns)
             print("before split")
-            split_docs = splitter.split_documents(docs[0])
+            for doc in docs:
+                split_docs = splitter.split_documents(doc)
             print("after split")
             split_docs = treeTraversal(split_docs, caps)
             print("after go through")
@@ -210,7 +211,7 @@ class AIAssistant:
         )
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150,  separators=["\n\n"])
         child_text_splitter = RecursiveCharacterTextSplitter(chunk_size=200)
-        file_names = os.listdir('doc')
+        file_names = os.listdir('short_doc')
         for file_name in file_names:
             with open("img_cap/"+file_name[:-4]+"_cap.txt", 'r', encoding='utf-8') as f:
                 caps = f.readlines()
@@ -255,39 +256,42 @@ class AIAssistant:
         )
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150,  separators=["\n\n"])
         chain = summary_chain()
-        file_names = os.listdir('doc')
+        file_names = os.listdir('short_doc')
+        loaders = []
+        caps = []
         for file_name in file_names:
             with open("img_cap/"+file_name[:-4]+"_cap.txt", 'r', encoding='utf-8') as f:
-                caps = f.readlines()
-            loaders = [
-                TextLoader("doc/"+file_name, encoding = 'UTF-8'),
+                caps += [(f.readlines(), file_name[:-4])]
+            loaders += [
+                TextLoader("short_doc/"+file_name, encoding = 'UTF-8'),
             ]
-            docs = []
-            for loader in loaders:
-                docs.extend(loader.load())
-            docs = text_splitter.split_documents(docs)
-            doc_ids = [str(uuid.uuid4()) for _ in docs]
-            summaries = chain.batch(docs, {"max_concurrency": 5})
-            summary_docs = [
-                Document(page_content=s, metadata={id_key: doc_ids[i]})
-                for i, s in enumerate(summaries)
-            ]
-            for doc in docs:
-                doc.metadata['img_cap'] = []
-                for cap in caps:
-                    link, img_cap = cap.split("%")
+        docs = []
+        for loader in loaders:
+            docs.extend(loader.load())
+        docs = text_splitter.split_documents(docs)
+        doc_ids = [str(uuid.uuid4()) for _ in docs]
+        summaries = chain.batch(docs, {"max_concurrency": 5})
+        summary_docs = [
+            Document(page_content=s, metadata={id_key: doc_ids[i]})
+            for i, s in enumerate(summaries)
+        ]
+        for doc in docs:
+            doc.metadata['img_cap'] = []
+            for cap in caps:
+                if cap[1] == doc.metadata['source'].split("/")[1][:-4]:
+                    link, img_cap = cap[0][0].split("%")
                     if link in doc.page_content:
                         doc.metadata['img_cap'] += [img_cap]
-            retriever.vectorstore.add_documents(summary_docs)
-            retriever.docstore.mset(list(zip(doc_ids, docs)))
+        retriever.vectorstore.add_documents(summary_docs)
+        retriever.docstore.mset(list(zip(doc_ids, docs)))
         return retriever    
     
-    def docs_gen(self, question):
+    def docs_gen(self, retriever, question):
         en_question = vn_2_en(question)
         try:
             _filter = LLMChainFilter.from_llm(self.model)
             compression_retriever = ContextualCompressionRetriever(
-                base_compressor=_filter, base_retriever=self.retriever
+                base_compressor=_filter, base_retriever=retriever
             )
             docs = compression_retriever.invoke(en_question)
             if docs == []: docs = [Document(page_content="Không có tài liệu liên quan đến câu hỏi này.", metadata={})]
@@ -415,7 +419,7 @@ class AIAssistant:
             delete_two_most_recent_message(config['configurable']['session_id'])
         return result, img_paths, img_caps
     
-    def docs_branch(self, question, config, img_caps):
+    def docs_branch(self, question, retriever, config, img_caps):
         trimmer = self.llm_memory()
         prompt = self.docs_prompt_gen()
         chain = (
@@ -430,7 +434,7 @@ class AIAssistant:
             get_session_history_mongodb,
             input_messages_key="question", #Which key is user's input
         )
-        docs = self.docs_gen(question)
+        docs = self.docs_gen(retriever, question)
         if docs[0].page_content == 'Không có tài liệu liên quan đến câu hỏi này.':
             result = "Tôi không được cung cấp thông tin để trả lời câu hỏi này"
         else:
@@ -464,9 +468,16 @@ class AIAssistant:
             result, img_paths, img_caps=self.sql_branch(question, config, db, img_paths, img_caps)
         if response == 'False' or (response == 'True' and result['capable'] == False):
             #DOCS
-            result, img_caps, docs = self.docs_branch(question, config, img_caps)
-            print(result)
+            result, img_caps_and_paths, docs = self.docs_branch(question, self.retriever, config, img_caps)
+            if "Tôi không được cung cấp thông tin để trả lời câu hỏi này" in result:
+                result, img_caps_and_paths, docs = self.docs_branch(question, self.short_retriever, config, img_caps)
+            for img_cap_and_path in img_caps_and_paths:
+                img_cap, img_path = img_cap_and_path
+                img_caps += [img_cap]
+                img_paths += [img_path]
             if response == 'False' and "Tôi không được cung cấp thông tin để trả lời câu hỏi này" in result:
+                img_paths = []
+                img_caps = []
                 result, img_paths, img_caps=self.sql_branch(question, config, db, img_paths, img_caps)
                 result = result['output']
                 docs = ''
@@ -491,7 +502,7 @@ class AIAssistant:
             get_session_history_mongodb,
             input_messages_key="question", #Which key is user's input
         )
-        docs = self.docs_gen(question)
+        docs = self.docs_gen(self.retriever,question)
         print(docs)
         print("/////////////////////////////////////////////")
         dict_input = {
